@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 09:49:29 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/21 15:34:46 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/23 17:50:23 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ template < 	class Category,
 			class T,                     
           	class Distance = ptrdiff_t, //header <cstddef>
           	class Pointer = T*,          
-         	class Reference = T& > 
+         	class Reference = T& >
 class iterator {
 	public:
 		typedef T         value_type;

@@ -6,14 +6,13 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:03:33 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/21 16:40:50 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/23 17:50:04 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_TRAITS_HPP
 #define ITERATOR_TRAITS_HPP
 #include <cstddef>
-
 
 template <class Iterator>
 class iterator_traits
@@ -50,6 +49,5 @@ public:
     typedef typename std::random_access_iterator_tag iterator_category;
 
 };
-
 
 #endif 

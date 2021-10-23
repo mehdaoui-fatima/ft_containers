@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/21 14:10:05 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/22 16:07:19 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 #define VECTOR_HPP
 #include <iostream>
 #include <memory>
-#include<iterator>
 
 #include "iterator.hpp"
-
+#include "vector_iterator.hpp"
 template < class T, class Alloc = std::allocator<T> >
 class vector
 {	
@@ -48,14 +47,12 @@ public:
 		for (size_type i = 0; i < this->size; i++)
 			ptr[i] = val;
 	}
-
+	
 	// template <class InputIterator>
     //      vector (InputIterator first, InputIterator last,
     //              const allocator_type& alloc = allocator_type());
 
 	//vector (const vector& x);
-
-
 	// //NOTE: destructor
 	~vector()
 	{
