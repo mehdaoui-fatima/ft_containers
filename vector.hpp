@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/22 16:07:19 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/26 16:00:22 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,30 @@
 #define VECTOR_HPP
 #include <iostream>
 #include <memory>
+#include "viterator.hpp"
+#include "reverse_iterator.hpp"
+#include "iterator_traits.hpp"
 
-#include "iterator.hpp"
-#include "vector_iterator.hpp"
+
+namespace ft {
+
 template < class T, class Alloc = std::allocator<T> >
 class vector
-{	
+{
 public:
-	typedef 			T									value_type;
-	typedef 			Alloc								allocator_type;
-	typedef typename	allocator_type::reference			reference;
-	typedef typename	allocator_type::const_reference		const_reference;
-	typedef typename	allocator_type::pointer				pointer;
-	typedef	typename	allocator_type::const_pointer		const_pointer;
-	// NOTE:iterators
-	typedef 			size_t								size_type;
+	typedef 			T											value_type;
+	typedef 			Alloc										allocator_type;
+	typedef typename	allocator_type::reference					reference;
+	typedef typename	allocator_type::const_reference				const_reference;
+	typedef typename	allocator_type::pointer						pointer;
+	typedef	typename	allocator_type::const_pointer				const_pointer;
+	typedef typename	vectorIterator<pointer>						iterator;
+	typedef typename	vectorIterator<const_pointer>				const_iterator;
+	typedef typename	vectorReverseIterator<iterator>				reverse_iterator;
+	typedef typename	vectorReverseIterator<const_iterator>		const_reverse_iterator;
+	typedef typename	iterator_traits<iterator>::difference_type	difference_type
+	typedef 			size_t										size_type;
 	
-	//NOTE: Constructors
-	//TODO :what explicite constractors are for?
 	explicit vector (const allocator_type& alloc = allocator_type())
 	{
 		this->alloc = alloc;
@@ -47,7 +53,12 @@ public:
 		for (size_type i = 0; i < this->size; i++)
 			ptr[i] = val;
 	}
-	
+
+	iterator begin()
+	{
+		return (iterator(ptr));
+	}
+
 	// template <class InputIterator>
     //      vector (InputIterator first, InputIterator last,
     //              const allocator_type& alloc = allocator_type());
@@ -70,6 +81,8 @@ private:
 	pointer ptr;
 	allocator_type alloc;
 	size_type size;
-};
 
+
+};
+}
 #endif
