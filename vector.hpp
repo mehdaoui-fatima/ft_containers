@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/26 16:00:22 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/26 17:02:33 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ public:
 	typedef typename	allocator_type::const_reference				const_reference;
 	typedef typename	allocator_type::pointer						pointer;
 	typedef	typename	allocator_type::const_pointer				const_pointer;
-	typedef typename	vectorIterator<pointer>						iterator;
-	typedef typename	vectorIterator<const_pointer>				const_iterator;
-	typedef typename	vectorReverseIterator<iterator>				reverse_iterator;
-	typedef typename	vectorReverseIterator<const_iterator>		const_reverse_iterator;
-	typedef typename	iterator_traits<iterator>::difference_type	difference_type
+	typedef iterator_<pointer>										iterator;
+	typedef iterator_<const_pointer>								const_iterator;
+	typedef reverse_iterator_<iterator>								reverse_iterator;
+	typedef reverse_iterator_<const_iterator>						const_reverse_iterator;
+	typedef typename	iterator_traits<iterator>::difference_type	difference_type;
 	typedef 			size_t										size_type;
 	
 	explicit vector (const allocator_type& alloc = allocator_type())
@@ -53,18 +53,12 @@ public:
 		for (size_type i = 0; i < this->size; i++)
 			ptr[i] = val;
 	}
-
+	
 	iterator begin()
 	{
 		return (iterator(ptr));
 	}
 
-	// template <class InputIterator>
-    //      vector (InputIterator first, InputIterator last,
-    //              const allocator_type& alloc = allocator_type());
-
-	//vector (const vector& x);
-	// //NOTE: destructor
 	~vector()
 	{
 		(this->alloc).destroy(this->ptr);

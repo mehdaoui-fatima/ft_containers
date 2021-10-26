@@ -6,20 +6,23 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:27:08 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/26 16:01:33 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/26 16:52:37 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VITERATOR_HPP
 #define VITERATOR_HPP
+#include "iterator.hpp"
+#include "iterator_traits.hpp"
+#include <iostream>
 
 template <class T>
 class iterator_ : public iterator<std::random_access_iterator_tag, T>
 {
 public:
-	typedef typename T                                              iterator_type;
+	typedef T                                                            iterator_type;
     typedef typename iterator_traits<iterator_type>::iterator_category   iterator_category;
-    typedef typename iterator_traits<iterator_type>::value_type	        value_type;
+    typedef typename iterator_traits<iterator_type>::value_type	         value_type;
     typedef typename iterator_traits<iterator_type>::pointer             pointer;
     typedef typename iterator_traits<iterator_type>::reference           reference;
     typedef typename iterator_traits<iterator_type>::difference_type     difference_type;
@@ -41,7 +44,7 @@ public:
 	}
 
     reference operator*() const {
-        Iterator    iter_tmp = current;
+        iterator_	iter_tmp = current;
         iter_tmp--;
         return *(iter_tmp);
     }
@@ -58,9 +61,10 @@ public:
         return iter_tmp;
     }
 
-    iterator_& operator++(int) //++a
+    iterator_& operator++() //++a
     {
-        return iterator_(current++);
+		current++;
+        return (*this);
     }
     
     iterator_& operator+=(difference_type n) //+=
@@ -75,7 +79,7 @@ public:
         return (*this);
     }
 
-    iterator_& operator--(void) // --a preDecrementation 
+    iterator_& operator--() // --a preDecrementation 
     {
         current--;
         return (*this);
@@ -159,15 +163,15 @@ iterator_<Iterator> operator+(
              typename iterator_<Iterator>::difference_type n,
              const iterator_<Iterator>& rev_it)
 {
-    return iterator_(n - rev_it);
+   //NOTE 
 }
 
 template <class Iterator>
-  typename iterator_<Iterator>::difference_type operator-(
-    const iterator_<Iterator>& lhs,
+typename iterator_<Iterator>::difference_type operator-(
+	const iterator_<Iterator>& lhs,
     const iterator_<Iterator>& rhs)
 {
-    return iterator_(lhs.current - rhs.current);
+	//NOTE 
 }
 
 #endif /* VITERATOR_HPP */
