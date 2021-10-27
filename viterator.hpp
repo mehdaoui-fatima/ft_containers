@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:27:08 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/26 16:52:37 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/27 18:34:09 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ public:
     iterator_& operator=(iterator_<Iter> const &iter)
     {
         current = iter.current;
+        return *this;
     }
     
 	iterator_type base() const // base
@@ -43,10 +44,9 @@ public:
 		return (current);
 	}
 
-    reference operator*() const {
-        iterator_	iter_tmp = current;
-        iter_tmp--;
-        return *(iter_tmp);
+    reference operator*() const 
+    {
+        return *(current);
     }
 
     iterator_ operator+(difference_type n) const
@@ -75,8 +75,7 @@ public:
     
     iterator_ operator-(difference_type n) const
     {
-        current = current - n;
-        return (*this);
+        return (iterator_(current - n));
     }
 
     iterator_& operator--() // --a preDecrementation 
@@ -126,7 +125,7 @@ template <class Iterator>
   bool operator!=(const iterator_<Iterator>& lhs,
                    const iterator_<Iterator>& rhs)
 {
-    return(lhs.current != rhs.current);
+    return(lhs.base() != rhs.base());
 }
 	
 template <class Iterator>
@@ -157,23 +156,23 @@ template <class Iterator>
     return(lhs.current >= rhs.current);
 }
 
-
-template <class Iterator>
-iterator_<Iterator> operator+(
-             typename iterator_<Iterator>::difference_type n,
-             const iterator_<Iterator>& rev_it)
+template <class T>
+iterator_<T> operator+(
+             typename iterator_<T>::difference_type n,
+             const iterator_<T>& rev_it)
 {
-   //NOTE 
+    return (iterator_<T>(rev_it.base() + n));
 }
 
-template <class Iterator>
-typename iterator_<Iterator>::difference_type operator-(
-	const iterator_<Iterator>& lhs,
-    const iterator_<Iterator>& rhs)
+template <class T>
+typename iterator_<T>::difference_type operator-(
+	const iterator_<T>& lhs,
+    const iterator_<T>& rhs)
 {
-	//NOTE 
+     ptrdiff_t diff = (rhs.base() - lhs.base());
+     return diff;
 }
 
-#endif /* VITERATOR_HPP */
+#endif
 
 

@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 12:01:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/26 16:58:20 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/10/26 17:56:27 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,47 +112,47 @@ protected:
 };
 
 
-// template <class Iterator>
-// bool operator==(const reverse_iterator_<Iterator>& lhs,
-//                    const reverse_iterator_<Iterator>& rhs)
-// {
-//     return(lhs.current == rhs.current);
-// }
+template <class Iterator>
+bool operator==(const reverse_iterator_<Iterator>& lhs,
+                   const reverse_iterator_<Iterator>& rhs)
+{
+    return(lhs.current == rhs.current);
+}
 
-// template <class Iterator>
-//   bool operator!=(const reverse_iterator_<Iterator>& lhs,
-//                    const reverse_iterator_<Iterator>& rhs)
-// {
-//     return(lhs.current!= rhs.current);
-// }
+template <class Iterator>
+  bool operator!=(const reverse_iterator_<Iterator>& lhs,
+                   const reverse_iterator_<Iterator>& rhs)
+{
+    return(lhs.current!= rhs.current);
+}
 	
-// template <class Iterator>
-//   bool operator<(const reverse_iterator_<Iterator>& lhs,
-//                    const reverse_iterator_<Iterator>& rhs)
-// {
-//     return(lhs.current< rhs.current);
-// }
+template <class Iterator>
+  bool operator<(const reverse_iterator_<Iterator>& lhs,
+                   const reverse_iterator_<Iterator>& rhs)
+{
+    return(lhs.current< rhs.current);
+}
 
-// template <class Iterator>
-//   bool operator<=(const reverse_iterator_<Iterator>& lhs,
-//                    const reverse_iterator_<Iterator>& rhs)
-// {
-//     return(lhs.current<= rhs.current);
-// }
+template <class Iterator>
+  bool operator<=(const reverse_iterator_<Iterator>& lhs,
+                   const reverse_iterator_<Iterator>& rhs)
+{
+    return(lhs.current<= rhs.current);
+}
 
-// template <class Iterator>
-//   bool operator>(const reverse_iterator_<Iterator>& lhs,
-//                    const reverse_iterator_<Iterator>& rhs)
-// {
-//     return(lhs.current> rhs.current);
-// }
+template <class Iterator>
+  bool operator>(const reverse_iterator_<Iterator>& lhs,
+                   const reverse_iterator_<Iterator>& rhs)
+{
+    return(lhs.current> rhs.current);
+}
 	
-// template <class Iterator>
-//   bool operator>=(const reverse_iterator_<Iterator>& lhs,
-//                    const reverse_iterator_<Iterator>& rhs)
-// {
-//     return(lhs.current >= rhs.current);
-// }
+template <class Iterator>
+  bool operator>=(const reverse_iterator_<Iterator>& lhs,
+                   const reverse_iterator_<Iterator>& rhs)
+{
+    return(lhs.current >= rhs.current);
+}
 
 
 // template <class Iterator>
@@ -160,7 +160,7 @@ protected:
 //              typename reverse_iterator_<Iterator>::difference_type n,
 //              const reverse_iterator_<Iterator>& rev_it)
 // {
-//     return reverse_iterator_(n - rev_it);
+    
 // }
 
 // template <class Iterator>
@@ -168,7 +168,7 @@ protected:
 //     const reverse_iterator_<Iterator>& lhs,
 //     const reverse_iterator_<Iterator>& rhs)
 // {
-//     return reverse_iterator_(lhs.current - rhs.current);
+//     rhs.current - lhs.current;
 // }
 
 #endif /* REVERSE_ITERATOR_HPP */
