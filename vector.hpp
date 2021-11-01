@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/29 19:16:00 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/01 19:04:56 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,22 @@ public:
 	// }
 
 	// vector (const vector& x);
+
+	//NOTE Assign operator
+	vector& operator=(const vector& x)
+	{
+		value_type len = x.size();
+		clear();
+		if (_capacity < x.capacity())
+			reserve(x.capacity());
+		else
+			reserve(len);
+		for (int i = 0; i < len; i++)
+			ptr[i] = x[i];
+		_size = len;
+		return (*this);
+	}
+
 	iterator begin()
 	{
 		return (iterator(ptr));
@@ -117,45 +133,45 @@ public:
 	{
 		if (n < _size)
 		{
-			pointer tmp;
-			tmp = al.allocate(n);
-			for (int i = 0; i < n; i++)
-				tmp[i] =  ptr[i];
-			for (int i = 0; i < _size; i++)
+			for (int i = n ; i < _size; i++)
 				al.destroy(ptr + i);
-			al.deallocate(ptr, _capacity);
-			this->ptr = tmp;
 			_size = n;
-			_capacity = n;
 		}
 		else if (n > _size)
 		{
-			reserve(n);
+			size_type res = (n > (_capacity * 2) ) ? n : (_capacity * 2);
+			reserve(res);
 			for(int i = _size; i < n; i++)
 				ptr[i] =  val;
 			_size = n;
 		}
 	}
-
+	
+	void showVector(void)
+	{
+		for (size_t i = 0; i < _size; i++)
+		{
+			std::cout << *(ptr + i) << "|";
+		}
+		std::cout << std::endl;
+		std::cout << "capacity: " << this->capacity() << " size: " << this->size() << std::endl;
+	}
+	
 	void	reserve(size_type n)
 	{
 		if (n > capacity())
 		{
 			pointer tmp =  al.allocate(n);
-			_capacity =  n;
-			
 			for (int i = 0; i < _size; i++)
 			{
 				tmp[i] =  ptr[i];
 				al.destroy(ptr + i);
 			}
-			al.deallocate(ptr, n);
+			al.deallocate(ptr, _capacity);
+			_capacity = n;
 			this->ptr = tmp;
 		}
 	}
-
-
-
 
 	//NOTE: Element access
 	reference operator[](size_type n)
@@ -204,23 +220,47 @@ public:
 		return *(ptr + _size - 1);
 	}
 	
+	//NOTE: Modifiers
+	void pop_back()
+	{
+		if (_size > 0)
+		{
+			al.destroy(ptr + _size - 1);
+			resize(_size - 1);
+		}
+	}
 
+	void	push_back(const value_type &val)
+	{
+		if (_size == _capacity)
+			resize(_size + 1, val);
+		else
+			ptr[_size++] = val;
+	}
 
+	// void swap(vector& x)
+	// {
+	// 	vector tmp = reserve(_size);
+		
+	// 	for (int i = 0; i < _size; i++)
+	// 		tmp[i] = ptr[i];
+	// 	*this = x;
+	// 	x.resize(_size);
+	// 	for (int i = 0; i < _size; i++)
+	// 		x[i] = tmp[i];
+	// 	tmp.clear
+	// }
 
-
-
-
-
-
-
+	void clear()
+	{
+		for (int i = 0; i < _size; i++)
+			al.destroy(ptr + i);
+	}
 
 	~vector()
 	{
-		al.destroy(ptr);
-		al.deallocate(ptr, _size);
+		clear();
 	}
-
-
 
 
 private:
