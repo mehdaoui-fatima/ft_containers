@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:27:08 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/01 17:17:51 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/03 16:46:14 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ typename iterator_<T>::difference_type operator-(
 	const iterator_<T>& lhs,
     const iterator_<T>& rhs)
 {
-     ptrdiff_t diff = (rhs.base() - lhs.base());
+     ptrdiff_t diff = (lhs.base() - rhs.base());
      return diff;
 }
 

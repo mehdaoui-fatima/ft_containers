@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/01 19:04:56 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/03 16:51:57 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ public:
 	}
 
 	//NOTE:: check the capacity and size calculation
-	explicit vector (size_type n, const value_type& val = value_type(),
+	vector (size_type n, const value_type& val = value_type(),
                  const allocator_type& alloc = allocator_type())
 	{
 		al = alloc;
 		_size = n;
 		_capacity = n;
 		ptr = al.allocate(n);
-		for (size_type i = 0; i < _size; i++)
+		for (size_type i = 0; i < n; i++)
 			ptr[i] = val;
+		return ;	
 	}
-
+	
 	//enable_if
 	// template <class InputIterator>
     // vector (InputIterator first, InputIterator last,
@@ -70,6 +71,40 @@ public:
 	// vector (const vector& x);
 
 	//NOTE Assign operator
+	template <class InputIterator>
+	void assign(InputIterator first, InputIterator last)
+	{	
+		difference_type diff = last - first;
+		std::cout << diff << std::endl;
+		if(diff > _capacity)
+		{
+			clear();
+			ptr = al.allocate(diff);
+			_size = diff;
+			_capacity = diff;
+		}
+		while (diff-- > 0)
+			ptr[diff] = *(first++);
+	}
+
+	/* NOTE change the old values of container if 
+			the capacity can hold all the n element 
+	 		or realocate new conatiner with the new capacity */
+	void assign(size_type n, const value_type& val)
+	{
+		if (n > _capacity)
+		{
+			clear();
+			ptr = al.allocate(n);
+			_capacity = n;
+			_size = n;
+		}
+		for (int i = 0; i < n; i++)
+			ptr[i] =  val;
+		_size = n;
+	}
+
+
 	vector& operator=(const vector& x)
 	{
 		value_type len = x.size();
@@ -128,7 +163,8 @@ public:
 		return (_size == 0);
 	}
 	
-	//NOTE:
+	/*NOTE: resize destroy extra element or add the val to the new 
+	extended memory spaces with no change in the older values*/
 	void resize(size_type n, value_type val = value_type())
 	{
 		if (n < _size)
@@ -255,11 +291,12 @@ public:
 	{
 		for (int i = 0; i < _size; i++)
 			al.destroy(ptr + i);
+		_size = 0;
 	}
 
 	~vector()
 	{
-		clear();
+		// clear();
 	}
 
 
