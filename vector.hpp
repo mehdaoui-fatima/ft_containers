@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/03 16:51:57 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/05 19:20:00 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,33 +75,15 @@ public:
 	void assign(InputIterator first, InputIterator last)
 	{	
 		difference_type diff = last - first;
-		std::cout << diff << std::endl;
 		if(diff > _capacity)
 		{
 			clear();
 			ptr = al.allocate(diff);
-			_size = diff;
 			_capacity = diff;
 		}
+		_size = diff;
 		while (diff-- > 0)
-			ptr[diff] = *(first++);
-	}
-
-	/* NOTE change the old values of container if 
-			the capacity can hold all the n element 
-	 		or realocate new conatiner with the new capacity */
-	void assign(size_type n, const value_type& val)
-	{
-		if (n > _capacity)
-		{
-			clear();
-			ptr = al.allocate(n);
-			_capacity = n;
-			_size = n;
-		}
-		for (int i = 0; i < n; i++)
-			ptr[i] =  val;
-		_size = n;
+			ptr[diff] = *(first++);	
 	}
 
 
@@ -186,10 +168,7 @@ public:
 	void showVector(void)
 	{
 		for (size_t i = 0; i < _size; i++)
-		{
 			std::cout << *(ptr + i) << "|";
-		}
-		std::cout << std::endl;
 		std::cout << "capacity: " << this->capacity() << " size: " << this->size() << std::endl;
 	}
 	
@@ -273,6 +252,63 @@ public:
 		else
 			ptr[_size++] = val;
 	}
+
+	/* NOTE change the old values of container if 
+			the capacity can hold all the n element 
+	 		or realocate new conatiner with the new capacity */
+	void assign(size_type n, const value_type& val)
+	{
+		if (n > _capacity)
+		{
+			clear();
+			al.deallocate(this->ptr, _capacity);
+			_capacity = n;
+			ptr = al.allocate(_capacity);	
+		}
+		for (int i = 0; i < n; i++)
+			ptr[i] =  val;
+		_size = n;
+	}
+
+
+	/*erase the value in position saving the same 
+	container without reallocation, the size now is size--*/
+	iterator erase(iterator position)
+	{
+		for (iterator it = position; it != end(); it++)
+			*(it) = *(it + 1);
+		_size--;
+		al.destroy(ptr + _size);
+		return position;
+	}
+
+	iterator erase(iterator first, iterator last)
+	{
+		iterator it = first;
+		difference_type diff = last - first;
+		
+		while (last != end())
+			*(first++) = *(last++);
+		(_size) -= diff;
+		while (diff < _size)
+			al.destroy(ptr  + diff++);
+		return it;
+	}
+
+
+	iterator insert(iterator position, const value_type& val)
+	{
+		difference_type diff = position - begin();
+		if (_size + 1 > _capacity)
+			reserve(_size * 2);
+		_size++;
+		for (value_type i = _size; i > diff; i--)
+			ptr[i] = ptr[i - 1];
+		ptr[diff] = val;
+		return position;	
+	}
+
+
 
 	// void swap(vector& x)
 	// {
