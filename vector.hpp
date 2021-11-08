@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/05 19:20:00 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:55:16 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,6 @@ public:
 		return it;
 	}
 
-
 	iterator insert(iterator position, const value_type& val)
 	{
 		difference_type diff = position - begin();
@@ -308,6 +307,18 @@ public:
 		return position;	
 	}
 
+	void insert(iterator position, size_type n, const value_type& val)
+	{
+		difference_type  diff = position - begin();
+		difference_type  elm = position - begin();
+		if (_size + n > _capacity)
+			reserve(_size * 2);
+		for(value_type i = _size; i >= diff; i--)
+			ptr[i + n] = ptr[i];
+		for(value_type i = elm; i < elm + n; i++)
+			ptr[i] = val;
+		_size += n;
+	}
 
 
 	// void swap(vector& x)

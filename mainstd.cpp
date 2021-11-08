@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 16:16:08 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/05 18:47:56 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:48:10 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 
 void    showVector(std::vector<int> &v)
 {
-    for (size_t i = 0; i < v.size(); i++)
+	std::vector<int>::iterator it = v.begin();
+    for (; it != v.end(); it++)
     {
-        std::cout << v[i] << "|";
+        std::cout << *it << "|";
     }
    std::cout << "capacity: " <<  v.capacity() << "   " << "size: " << v.size() << std::endl;
 
@@ -128,43 +129,75 @@ int main()
 		}
 	}*/
 
-	{
+	/*{
 		std::cout << green <<  "INSERT" << reset << std::endl;
-		std::vector<int> vec(10, 78);
+		std::vector<int> vec(20, 78);
 		vec[1] = 15;
 		vec[2] = 16;
 		vec[3] = 17;
 		vec[4] = 18;
 		vec[5] = 19;
 		vec[9] = 17779;
-		std::vector<int>::iterator it = vec.begin();
-		std::vector<int>::iterator result;
 
-		showVector(vec);
-		result = vec.insert(it + 4, 42);
-		std::cout << *result << std::endl;
+	
+		std::vector<int>::iterator result;
+		result = vec.insert(vec.end() + 1, 888);
+		// result = vec.insert(vec.begin() + 5, 43);
+		// result = vec.insert(vec.begin() + 11, 19);
+		// result = vec.insert(vec.begin() + 10, 11111111);
 		showVector(vec);
 
 	}
 	{
 		std::cout <<"***************************************"<< std::endl;
-		ft::vector<int> vec(10, 78);
+		ft::vector<int> vec(20, 78);
 		vec[1] = 15;
 		vec[2] = 16;
 		vec[3] = 17;
 		vec[4] = 18;
 		vec[5] = 19;
 		vec[9] = 17779;
-		ft::vector<int>::iterator it = vec.begin();
+		
 		ft::vector<int>::iterator result;
+		result = vec.insert(vec.end() + 1, 8888888);
+		// result = vec.insert(vec.begin() + 5, 43);
+		// result = vec.insert(vec.begin() + 11, 19);
+		// result = vec.insert(vec.begin() + 10, 11111111);
 
 		vec.showVector();
-		result = vec.insert(it + 4, 42);
-		std::cout << *result << std::endl;
+
+	}*/
+
+
+
+	{
+		std::vector<int> vec(12,78);
+		vec[1] = 15;
+		vec[2] = 16;
+		vec[3] = 17;
+		vec[4] = 18;
+		vec[5] = 19;
+		vec[6] = 17779;
+
+		vec.insert(vec.begin(), 6, 13);
+		showVector(vec);
+
+
+	}
+	{
+		std::cout << "******************" <<std::endl;
+		ft::vector<int> vec(12,78);
+		vec[1] = 15;
+		vec[2] = 16;
+		vec[3] = 17;
+		vec[4] = 18;
+		vec[5] = 19;
+		vec[6] = 17779;
+
+		vec.insert(vec.begin(), 6, 13);
 		vec.showVector();
 
 	}
-
 
 
   return (0);
