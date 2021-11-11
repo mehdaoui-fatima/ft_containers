@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 16:16:08 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/08 15:48:10 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:38:55 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 #include<iostream>
 #include<vector>
 #include "vector.hpp"
+#include "is_integral.hpp"
 
 
 #define green "\033[32m"
 #define reset "\033[0m"
+
+
 
 
 void    showVector(std::vector<int> &v)
@@ -32,7 +35,11 @@ void    showVector(std::vector<int> &v)
 }
 
 int main()
-{			/*assign*/
+{	
+	
+	
+	// std::is_integral
+			/*assign*/
 	/*{ 
 		std::cout << green <<  "ASSIGN "<< reset << std::endl;
 		{
@@ -171,6 +178,7 @@ int main()
 
 
 	{
+	
 		std::vector<int> vec(12,78);
 		vec[1] = 15;
 		vec[2] = 16;
@@ -179,13 +187,18 @@ int main()
 		vec[5] = 19;
 		vec[6] = 17779;
 
-		vec.insert(vec.begin(), 6, 13);
+		// std::cout << "insert fill" << std::endl;
+		// vec.insert(vec.begin(),  4, 13);
+		// showVector(vec);
+
+		std::cout << "insert range" << std::endl;
+		vec.insert(vec.begin(), vec.begin() + 4, vec.begin() + 5);
 		showVector(vec);
 
 
 	}
 	{
-		std::cout << "******************" <<std::endl;
+		std::cout << "******************" << std::endl;
 		ft::vector<int> vec(12,78);
 		vec[1] = 15;
 		vec[2] = 16;
@@ -194,8 +207,17 @@ int main()
 		vec[5] = 19;
 		vec[6] = 17779;
 
-		vec.insert(vec.begin(), 6, 13);
+		
+		std::cout << "insert fill" << std::endl;
+		vec.insert(vec.begin(),  4, 13);
 		vec.showVector();
+		std::cout << "insert range" << std::endl;
+		vec.insert(vec.begin(), vec.begin() + 4, vec.begin() + 5);
+		vec.showVector();
+	
+
+	
+		
 
 	}
 

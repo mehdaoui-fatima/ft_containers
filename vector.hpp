@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/08 15:56:16 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:40:28 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 #include "viterator.hpp"
 #include "reverse_iterator.hpp"
 #include "iterator_traits.hpp"
-
+#include "is_integral.hpp"
+#include "enable_if.hpp"
 
 namespace ft {
 
@@ -317,6 +318,18 @@ public:
 		for(value_type i = diff; i < diff + n; i++)
 			ptr[i] = val;
 		_size += n;
+	}
+
+	//NOTE: you were here
+	template <class InputIterator>
+    void insert(iterator position, InputIterator first, InputIterator last, 
+	typename enable_if<!is_integral<InputIterator>::value>::type * = nullptr)
+	{
+		
+
+
+
+
 	}
 
 
