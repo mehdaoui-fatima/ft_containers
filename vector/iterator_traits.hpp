@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:03:33 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/26 16:08:29 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/14 13:24:24 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,4 @@ class iterator_traits<const T*>
 
 };
 
-#endif
+#endif /* ITERATOR_TRAITS_HPP */

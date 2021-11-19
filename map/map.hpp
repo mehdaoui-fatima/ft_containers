@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tester.cpp                                         :+:      :+:    :+:   */
+/*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 11:11:21 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/27 11:54:30 by fmehdaou         ###   ########.fr       */
+/*   Created: 2021/11/18 15:41:53 by fmehdaou          #+#    #+#             */
+/*   Updated: 2021/11/19 12:16:48 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MAP_HPP
+#define MAP_HPP
 #include <iostream>
-#include <vector>
-#include <iterator>
-
-
-#define EQUAL(y) ((y) ? (std::cout << "true" <<std::endl) : (std::cout << "false"))
+#include <memory>
 
 
 
+template < class Key,                                     
+           class T >                                   
+        //    class Compare = less<Key>,                    
+        //    class Alloc = allocator<ft::pair<const Key,T> > > 
+class map
+{
 
 
+
+
+
+};
+
+#endif

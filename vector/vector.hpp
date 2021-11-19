@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/12 14:44:09 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/14 13:51:44 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "iterator_traits.hpp"
 #include "is_integral.hpp"
 #include "enable_if.hpp"
+#include<vector>
 
 
 //NOTE change all the values  of int i in loops to be size_type
@@ -67,9 +68,7 @@ public:
 	template <class InputIterator>
     vector(InputIterator first, InputIterator last,
             const allocator_type& alloc = allocator_type(),
-			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = nullptr)
-			
-			
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = nullptr)		
 	{
 		difference_type diff = last - first;
 		al = alloc;
@@ -144,6 +143,26 @@ public:
 		return const_iterator(ptr + _size);
 	}
 
+	reverse_iterator rbegin()
+	{
+		return reverse_iterator(end());
+	}
+
+	const_reverse_iterator rbegin() const
+	{
+		return (const_reverse_iterator(end()));
+	}
+	
+	reverse_iterator rend()
+	{
+		return reverse_iterator(begin());
+	}
+
+	const_reverse_iterator rend() const
+	{
+		return const_reverse_iterator(begin());
+	}
+	
 	size_type size() const
 	{
 		return(_size);
@@ -151,10 +170,10 @@ public:
 
 	size_type max_size() const
 	{
-		if (al.max_size() < std::numeric_limits<difference_type>::max())
+		// if (al.max_size() < std::numeric_limits<size_type>::max())
 			return al.max_size();
-		else
-			return std::numeric_limits<difference_type>::max();
+		// else
+		// 	return std::numeric_limits<difference_type>::max();
 	}
 
 
@@ -174,7 +193,7 @@ public:
 	{
 		if (n < _size)
 		{
-			for (int i = n ; i < _size; i++)
+			for (size_type i = n ; i < _size; i++)
 				al.destroy(ptr + i);
 			_size = n;
 		}
@@ -182,7 +201,7 @@ public:
 		{
 			size_type res = (n > (_capacity * 2) ) ? n : (_capacity * 2);
 			reserve(res);
-			for(int i = _size; i < n; i++)
+			for(size_type i = _size; i < n; i++)
 				ptr[i] =  val;
 			_size = n;
 		}
@@ -205,7 +224,7 @@ public:
 				tmp[i] =  ptr[i];
 				al.destroy(ptr + i);
 			}
-			al.deallocate(ptr, _capacity);
+			// al.deallocate(ptr, _capacity);
 			_capacity = n;
 			this->ptr = tmp;
 		}
@@ -337,7 +356,7 @@ public:
 			reserve(_size * 2);
 		for(value_type i = _size; i >= diff; i--)
 			ptr[i + n] = ptr[i];
-		for(value_type i = diff; i < diff + n; i++)
+		for(size_type i = diff; i < diff + n; i++)
 			ptr[i] = val;
 		_size += n;
 	}
