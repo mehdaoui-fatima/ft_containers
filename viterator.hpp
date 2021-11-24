@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:27:08 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/03 16:46:14 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2021/11/24 10:20:41 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ template <class Iterator>
 bool operator==(const iterator_<Iterator>& lhs,
                    const iterator_<Iterator>& rhs)
 {
-    return(lhs.current == rhs.current);
+    return(lhs.base() == rhs.base());
 }
 
 template <class Iterator>
@@ -132,28 +132,28 @@ template <class Iterator>
   bool operator<(const iterator_<Iterator>& lhs,
                    const iterator_<Iterator>& rhs)
 {
-    return(lhs.current < rhs.current);
+    return(lhs.base() < rhs.base());
 }
 
 template <class Iterator>
   bool operator<=(const iterator_<Iterator>& lhs,
                    const iterator_<Iterator>& rhs)
 {
-    return(lhs.current <= rhs.current);
+    return(lhs.base() <= rhs.base());
 }
 
 template <class Iterator>
   bool operator>(const iterator_<Iterator>& lhs,
                    const iterator_<Iterator>& rhs)
 {
-    return(lhs.current > rhs.current);
+    return(lhs.base() > rhs.base());
 }
 	
 template <class Iterator>
   bool operator>=(const iterator_<Iterator>& lhs,
                    const iterator_<Iterator>& rhs)
 {
-    return(lhs.current >= rhs.current);
+    return(lhs.base() >= rhs.base());
 }
 
 template <class T>
