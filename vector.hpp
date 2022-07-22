@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:55:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/24 13:18:29 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2022/07/21 19:25:18 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ namespace ft {
 			return ;
 		}
 
-
+		// NOTE check the implementation it seems wrong
 		vector(const vector& x)
 		{
 			for (value_type i = _size - 1; i >= 0; i--)
@@ -389,7 +389,7 @@ namespace ft {
 			x.resize(_size);
 			for (int i = 0; i < _size; i++)
 				x[i] = tmp[i];
-			tmp.clear
+			tmp.clear;
 		}
 
 		void clear()
@@ -419,7 +419,10 @@ namespace ft {
 		template <class _T, class _Alloc>
 		friend bool operator>=(const vector<_T, _Alloc>& lhs, const vector<_T, _Alloc>& rhs);
 
-		~vector(){// clear();
+		//NOTE check the implementation
+		~vector<value_type, allocator_type>()
+		{
+			al.deallocate(ptr, _capacity);
 		}
 
 	private:

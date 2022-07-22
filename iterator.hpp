@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 15:44:58 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/10/26 18:04:55 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:44:33 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 #define ITERATOR_HPP
 #include <cstddef>
 
-template < 	class Category,             
-			class T,                     
-          	class Distance = ptrdiff_t, //header <cstddef>
-          	class Pointer = T*,          
-         	class Reference = T& >
+template <class Category, class T,class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class iterator {
 	public:
 		typedef T         value_type;

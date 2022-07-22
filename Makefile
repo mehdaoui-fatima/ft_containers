@@ -6,7 +6,7 @@
 #    By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/11 12:22:15 by fmehdaou          #+#    #+#              #
-#    Updated: 2021/11/11 15:19:53 by fmehdaou         ###   ########.fr        #
+#    Updated: 2022/07/21 18:21:52 by fmehdaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ HEADERS			=  enable_if.hpp \
 				   viterator.hpp \
 				   
 					
-SRCS			=  main.cpp  \
+SRCS			=  main2.cpp  \
 		  
 OBJS			= $(SRCS:.cpp=.o)
 
