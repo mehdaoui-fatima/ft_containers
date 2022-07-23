@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 12:01:09 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/14 11:27:01 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:33:08 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,30 @@ public:
     typedef typename iterator_traits<Iterator>::difference_type     difference_type;
 
     reverse_iterator_() : current() //(1)default
-    {}; 
+    {};
 
 	explicit reverse_iterator_(iterator_type it) : current(it){} //(2)initialization
 
-    template <class Iter> //(3)copy
-    reverse_iterator_& operator=(reverse_iterator_<Iter> const &iter){
-        current = iter.current;
-    }
+    // template <class Iterator>
+    // reverse_iterator (const reverse_iterator<Iter>& rev_it)
+    // {
+        
+    // }
+
+    // template <class Iter> //(3)copy
+    // reverse_iterator_& operator=(reverse_iterator_<Iter> const &iter){
+    //     current = iter.current;
+    // }
     
+    template <class iterator_type>
+		reverse_iterator_ (const reverse_iterator_<iterator_type>& rev_it) { current = rev_it.base();}
+
+	reverse_iterator_& 		operator=(reverse_iterator_ const&	other)
+	{
+		current = other.base();
+		return (*this);	
+	}
+
 	iterator_type base() const // base
 	{
 		return (current);

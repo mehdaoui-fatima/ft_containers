@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 10:49:17 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/26 16:23:21 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2022/07/22 15:36:25 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,40 @@
 #include <cstddef>
 #include <map>
 
-template <class value_type>
-struct node {
-public:
-    value_type data;
-    node *left;
-    node *right;
-    node(){};
-};
+// template <class value_type>
+// struct node {
+// public:
+//     value_type data;
+//     node *left;
+//     node *right;
+//     node(){};
+// };
 
-template <class value_type>
-class Bst {
+// template <class value_type>
+// class Bst {
 
-public:
+// public:
   
-    typedef node<> node;
+//     typedef node<> node;
 
-    Bst() : root(nullptr){}
+//     Bst() : root(nullptr){}
     
-    node*   createBstLeaf(value_type n){
-        node *elm = new node();
-        elm->data = n;
-        elm->left = nullptr;
-        elm->right = nullptr;
-        return n;
-    }
+//     node*   createBstLeaf(value_type n){
+//         node *elm = new node();
+//         elm->data = n;
+//         elm->left = nullptr;
+//         elm->right = nullptr;
+//         return n;
+//     }
     
-    void insert()
-    {
+//     void insert()
+//     {
         
-    }
+//     }
 
-protected:
-      node *root;
-};
+// protected:
+//       node *root;
+// };
 
 
 

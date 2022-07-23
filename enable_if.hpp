@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:19:15 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/11 16:04:00 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2022/07/23 11:39:49 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ namespace ft {
         typedef T type;
     };
 }
-
 
 #endif 

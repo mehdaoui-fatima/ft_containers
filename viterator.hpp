@@ -6,7 +6,7 @@
 /*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 10:27:08 by fmehdaou          #+#    #+#             */
-/*   Updated: 2021/11/24 10:20:41 by fmehdaou         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:35:04 by fmehdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ public:
     typedef typename iterator_traits<iterator_type>::reference           reference;
     typedef typename iterator_traits<iterator_type>::difference_type     difference_type;
 
-    iterator_() : current() //(1)default
-    {}; 
-
-	explicit iterator_(iterator_type it) : current(it){} //(2)initialization
-
-    template <class Iter> //(3)copy
-    iterator_& operator=(iterator_<Iter> const &iter)
-    {
-        current = iter.current;
-        return *this;
+    iterator_() : current(nullptr) {}
+	
+    explicit iterator_(iterator_type it) : current(it){} //(2)initialization
+	
+    template <class _T>
+  		iterator_(const iterator_<_T>& it) {current = it.base();}
+    
+    iterator_& 		operator=(iterator_ const&	other)
+	{
+		current = other.current;
+		return (*this);
     }
     
 	iterator_type base() const // base
