@@ -16,40 +16,39 @@
 #include <cstddef>
 
 
-// template <class value_type>
-// struct node {
-// public:
-//     value_type data;
-//     node *left;
-//     node *right;
-//     node(){};
-// };
+template <class _T>
+struct _node
+{
+    public:
+        typedef _T  value_type;
+        _T          value;
+        _node<_T>   *parent;
+        _node<_T>   *left;
+        _node<_T>   *right;
+        int balance_factor;
+        //examp;e to ilustrate 
+        _node(const value_type  &p):value(p){};
+        _node   &operator=(const _node rhs){
+            this->value = rhs.value;
+            this->parent = rhs.parent;
+            this->left = rhs.left;
+            this->right = rhs.right;
+            this->balance_factor = rhs.balance_factor;
+        }
+        bool operator<(const _node &rhs)
+        {
+            return (this->value.first < rhs.value.first);
+        }
 
-// template <class value_type>
-// class Bst {
 
-// public:
-  
-//     typedef node<> node;
 
-//     Bst() : root(nullptr){}
-    
-//     node*   createBstLeaf(value_type n){
-//         node *elm = new node();
-//         elm->data = n;
-//         elm->left = nullptr;
-//         elm->right = nullptr;
-//         return n;
-//     }
-    
-//     void insert()
-//     {
-        
-//     }
 
-// protected:
-//       node *root;
-// };
+
+}
+
+
+
+
 
 
 
