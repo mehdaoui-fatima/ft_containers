@@ -533,6 +533,7 @@ int main(void)
 	}
 	std::cout << "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end of stack tests >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
 			  << std::endl;
+
 	// end of stack tests
 
 	// map tests
