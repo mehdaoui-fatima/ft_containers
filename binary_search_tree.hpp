@@ -50,7 +50,7 @@ class _tree{
         typedef Allocator                   								allocator_type;
         typedef typename    _T::first_type  								key_type;
         typedef typename    _T::second_type 								value_type;
-        typedef size_t                      								size_type;//why?
+        typedef size_t                      								size_type;
         typedef ptrdiff_t													difference_type;
         typedef	_node<value_type>											node;
         typedef	typename	allocator_type::template rebind<node>::other	node_allocator;//fronn map 
@@ -61,19 +61,65 @@ class _tree{
         typedef	value_type&													reference;    
 
 
-    private:
+    private://why private
         size_type			size;
         const key_compare	&compare_object;
         const Allocator		&allocator;
         node				*root_node;
 
-    public:
+    public://why public
         node	*end_node;
 
-    //constructors
+    //constructors illustration
+    _tree(const key_compare& comp = key_compare(), 
+        const allocator_type alloc = allocator_type()) 
+        : size(0), compare_object(comp),allocator(alloc)
+    {
+        end_node =  node_allocator(allocator).allocate(1);
+        end_node->parent = nullptr;
+        end_node = balance_factor = 0;
+        root_node = end_node
+    }
+
+    node*   Base(){
+        return (root_node);
+    }
+
+    node*   begin(){
+        if (root_node == end_node)
+            return (end_node)
+        //need to implemet ft::min
+        return();
+    }
+
+    node* begin() const{
+        if (root_node == end_node)
+            return(end_node);
+        //implement ft::min
+        return();
+    }
+
+    node*   end(){
+        return (end_node);
+    }
+
+    node*   end() const{
+        return (end_node);
+    }
+
+    //return the size of the tree
+    size_type size(){
+        return size;
+    }
+
+    node*   get_root(){
+        return root_node;
+    }
+
+
 
     /*makeNode function takes a pair(value_type)
-    that allocate a node, construct it, initialized all the node elements 
+    that allocate a node, construct it, initialized all the node's elements 
     return the allocation of that node*/
     node*	makeNode(value_type	_T)
     {
@@ -116,7 +162,7 @@ class _tree{
             else
                 parent->right = new_node;
         }
-        //balance
+        updateBalance(new_node);
         return new_node;
     }
 
@@ -150,7 +196,7 @@ class _tree{
             else
                 parent->right = new_node;
         }
-        //balance
+        updateBalance(new_node);
         return new_node;
     }
 
@@ -181,9 +227,63 @@ class _tree{
     {
         return(searchinTree(root_node,  key_value));
     }
+
     //search pair from the root of the tree
     node*   search(const key_type&  value_type) const{
         return(searchinTree(root_node, value_type.first));
+    }
+
+
+    
+    node*   rebalance(node* node)
+    {
+        node*   tmp;
+        // - heavy on right
+        if (node->balance_factor < 0 )
+        {
+            if(node->right->balance_factor > 0)
+            {
+                rightRotation(node->right);
+                tmp = leftRotation(node);
+            }
+            else 
+                tmp = leftRotation(node);
+        }
+        //+ heavy on left
+        else{
+            if(node->left->balance_factor < 0)
+            {
+                leftRotation(node->left)
+                tmp = rightRotation(node);
+            }
+            else
+                tmp = rightRotation(node);
+        }
+        return tmp;
+    }
+
+
+
+
+
+
+    /*If the new node is a right child the balance factor of the parent will be reduced by one.
+    if the new node is a left child the balance factor of the parent will be increased by one
+    */
+    void    updateBalance(node* node){
+        if (node.balance_factor > 1 || node.balance_factor < -1)
+            rebalance(node);
+        if (node->parent != null && node->parent != end_node)
+        {
+            if (node->parent->right)
+                node->balance_factor -= 1;
+            else if (node->parent->left)
+                node->balance_factor += 1;
+            /*once a subtree has a balance factor of zero, then the 
+            balance of its ancestor nodes does not change.*/
+            if (node->parent->balance_factor != 0)
+                updateBalance(node.parent);
+        }
     }
 
 
@@ -202,7 +302,7 @@ class _tree{
     //TODO implement clear
     void clear()
     {
-        if(root_node != end_node)
+        if (root_node != end_node)
         {
             destroy(root_node);
             root_node = end_node;
@@ -210,11 +310,7 @@ class _tree{
         }
     }
 
-    //return the size of the tree
-    size_type size()
-    {
-        return size;
-    }
+
 
 
 
