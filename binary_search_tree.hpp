@@ -75,10 +75,10 @@ class _tree{
         const allocator_type alloc = allocator_type()) 
         : size(0), compare_object(comp),allocator(alloc)
     {
-        end_node =  node_allocator(allocator).allocate(1);
+        end_node = node_allocator(allocator).allocate(1);
         end_node->parent = nullptr;
         end_node = balance_factor = 0;
-        root_node = end_node
+        root_node = end_node;
     }
 
     node*   Base(){
@@ -113,7 +113,7 @@ class _tree{
     }
 
     node*   get_root(){
-        return root_node;
+        return root_node;ß
     }
 
 
@@ -200,11 +200,6 @@ class _tree{
         return new_node;
     }
 
-
-
-
-
-
     //search for a value from a starting node
     node*   searchinTree(node*  start, const key_type& key_value)
     {
@@ -234,7 +229,54 @@ class _tree{
     }
 
 
-    
+
+    node*	leftRotate(node* node){
+    node*   rootP = node->parent;
+    node*	nodeB = node->right;
+    if (rootP->left == Node)
+        rootP->left = nodeB;
+    else{
+        rootP->right = nodeB;
+    }
+    nodeB->parent = rootP;
+    if (rootP == end_node){
+        root_node = nodeB;
+    }
+    node->right = nodeB->left;	
+    if(nodeB->left != nullptr){
+        nodeB->left->parent = Node;
+    }
+    nodeB->left = Node;
+    node->parent = nodeB;
+    node->balance_factor = node->balance_factor + 1 - std::min(0, nodeB->balance_factor);
+    nodeB->balance_factor = nodeB->balance_factor + 1 + std::max(node->balance_factor, 0);
+    return nodeB;
+    };
+
+    //return the new note, implement balance factor
+    node*   rightRotate(node*   nodeC)
+    {
+        node* rootP = nodeC->parent;
+        node* nodeB = nodeC->left;
+        if (rootP->left == nodeC)
+            rootP->left = nodeB;
+        else
+            rootP->right = nodeB;
+        nodeB->parent = rootP;
+        if (rootP == end_node)
+            root_node = nodeB;
+        //illustrate: with heavy sides
+        nodeC->left = nodeB->right;	
+        if(nodeB->right != nullptr)
+            nodeB->right->parent = nodeC;
+        nodeB->right = nodeC;            
+        nodeC->parent = nodeB;
+        nodeC->balance_factor = nodeC->balance_factor - 1 - std::max(nodeB->balance_factor, 0);
+        nodeB->balance_factor = nodeB->balance_factor - 1 + std::min(0, nodeC->balance_factor);
+        return nodeB;
+    }
+
+
     node*   rebalance(node* node)
     {
         node*   tmp;
@@ -262,11 +304,6 @@ class _tree{
         return tmp;
     }
 
-
-
-
-
-
     /*If the new node is a right child the balance factor of the parent will be reduced by one.
     if the new node is a left child the balance factor of the parent will be increased by one
     */
@@ -284,6 +321,54 @@ class _tree{
             if (node->parent->balance_factor != 0)
                 updateBalance(node.parent);
         }
+    }
+
+
+
+    //delete node in tree, with node is starting node
+    node*   delete(node* node, const key_type& key)
+    {
+        if (node == end_node || node == nullptr)
+            return nullptr;
+		if (compare_object(key, node->value))
+			start->left = delete(node->left, key);
+		else if (compare_object(node->value, key))
+			start->right =  delete(node->right, key);
+		else {
+			if (node->right == null && node->left == null)
+			{
+				node_allocator(allocator).destroy(node);
+				node_allocator(allocator).deallocate(node, 1);
+				node = nullptr; //TODO implement
+			}
+			else if (node->left == nullptr)
+			{
+				node*	tmp = node;
+				node = node->right;
+				node->parent = tmp->parent;
+				node_allocator(allocator).destroy(tmp);
+				node_allocator(allocate).deallocate(tmp, 1);
+			}
+			else if(node->right == nullptr)
+			{
+				node*	tmp = node;
+				node = node->left;
+				node->parent = tmp->parent;
+				node_allocator(allocator).destroy(tmp);
+				node_allocator(deallocate).deallocate(tmp, 1);
+			}
+			else
+			{
+				//node->right != nullptr && node->left != nullptr
+				
+
+			}
+
+
+
+
+			return node;
+		}
     }
 
 

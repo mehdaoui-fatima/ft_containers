@@ -14,7 +14,7 @@
 #define MAP_HPP
 #include <memory>
 #include "pair.hpp"
-#include "bts.hpp"
+
 
 namespace ft {
 
@@ -24,7 +24,6 @@ template < class Key,
            class Alloc = std::allocator<pair<const Key,T> >
            > class map
 {
-
 	public:
 		typedef		Key												key_type; 
 		typedef		T												mapped_type;
