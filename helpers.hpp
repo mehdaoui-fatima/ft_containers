@@ -2,7 +2,7 @@
 namespace ft{
 
     template<class nodePointer>
-    nodePointer tree_min(nodePointer node){
+    nodePointer find_min(nodePointer node){
         nodePointer it;
         it = node;
 
@@ -13,7 +13,7 @@ namespace ft{
 
 
     template<class  nodePointer>
-    nodePointer tree_max(nodePointer node){
+    nodePointer find_max(nodePointer node){
         nodePointer it;
 
         it = node->right;

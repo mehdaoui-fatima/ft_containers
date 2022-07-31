@@ -14,13 +14,13 @@
 #define MAP_HPP
 #include <memory>
 #include "pair.hpp"
-
+#include "binary_search_tree.hpp"
 
 namespace ft {
 
 template < class Key,         
            class T,
-           class Compare = less<Key>,
+           class Compare = std::less<Key>,
            class Alloc = std::allocator<pair<const Key,T> >
            > class map
 {
@@ -37,12 +37,13 @@ template < class Key,
 		typedef		ptrdiff_t										difference_type;
 		typedef		size_t											size_type;
 
+
 	class value_compare : public std::binary_function<value_type, value_type, bool>
 	{
 		friend class map;
-		protected:
+		public:
 			key_compare comp;
-			value_compare(key_compare c ):comp(c) {};
+			value_compare(key_compare c = key_compare()):comp(c) {};
 		public:
 			bool operator()(const value_type& x, const value_type& y) const{
 				return comp(x.first, y.first);
@@ -55,10 +56,12 @@ template < class Key,
 			};
 	};
 
+	public:
+		typedef		_tree<value_type, value_compare, allocator_type>				tree;
 
-
-
-
+		map():t() {}
+	public:
+		tree t;
 
 };
 
