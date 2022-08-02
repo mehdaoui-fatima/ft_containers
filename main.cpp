@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fmehdaou <fmehdaou@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/08 10:18:30 by fmehdaou          #+#    #+#             */
-/*   Updated: 2022/07/22 17:47:34 by fmehdaou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
@@ -19,7 +8,6 @@
 #include "vector.hpp"
 #include "stack.hpp"
 #include "pair.hpp"
-#include "bts.hpp"
 
 
 int main()

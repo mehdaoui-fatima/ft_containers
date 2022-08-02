@@ -15,7 +15,7 @@ int main()
         // ft::pair<int, int> p2(2,1);
         // ft::pair<int, int> p3(3,12);
         // ft::pair<int, int> p4(4,11);
-        for (size_t i = 10; i < 13; i++)
+        for (size_t i = 9; i < 14; i++)
         {
             ft::pair<int, int> p(i,0);
             m.t.addinTree(m.t.makeNode(p));
@@ -26,6 +26,7 @@ int main()
         // m.t.addinTree(m.t.makeNode(p4));
         std::cout << "tree size: " << m.t.size() << std::endl;
         m.t.prettyPrint();
+        std::cout << "------------------" << std::endl;
     }
    
 

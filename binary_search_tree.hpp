@@ -10,18 +10,17 @@
 
 namespace ft {
     template <class _T>
-    struct _node
-    {
+    struct _node {
         public:
             typedef _T  value_type;
             _T          value;
             _node<_T>   *parent;
-            _node<_T>   *left;
             _node<_T>   *right;
-            int balance_factor;
+            _node<_T>   *left;
+            int         balance_factor;
             //example to illustrate 
             _node(const value_type  &p):value(p){};
-            _node   &operator=(const _node rhs){
+            _node   &operator=(const _node &rhs){
                 this->value = rhs.value;
                 this->parent = rhs.parent;
                 this->left = rhs.left;
@@ -33,7 +32,6 @@ namespace ft {
                 return (this->value.first < rhs.value.first);
             }
     };
-
 
     template<class _T, class Compare, class Allocator = std::allocator<_T> >
     class _tree{
@@ -50,20 +48,17 @@ namespace ft {
             typedef	node*														node_ptr;
 
             typedef value_type*													pointer;
-            typedef	const pointer												const_pointer;
             typedef	value_type&													reference;    
+            typedef	const pointer												const_pointer;
 
 
-        private://why private
+        private:
             size_type			_size;
             const key_compare	&compare_object;
             const Allocator		&allocator;
             node				*root_node;
+            node	            *end_node;
 
-        public://why public
-            node	*end_node;
-
-        //constructors illustration
         _tree(const key_compare& comp = key_compare(), 
             const allocator_type &alloc = allocator_type()) 
             : _size(0), compare_object(comp),allocator(alloc)
@@ -75,41 +70,37 @@ namespace ft {
         }
 
         node*   Base(){
-            return (root_node);
+            return (this->root_node);
         }
 
         node*   begin(){
             if (root_node == end_node)
-                return (end_node);
-            //need to implemet ft::min
+                return (this->end_node);
               return (ft::find_min(root_node));
         }
 
         node* begin() const{
             if (root_node == end_node)
                 return(end_node);
-            //implement ft::min
             return (ft::find_min(root_node));
         }
 
         node*   end(){
-            return (end_node);
+            return (this->end_node);
         }
 
         node*   end() const{
-            return (end_node);
+            return (this->end_node);
         }
 
         //return the size of the tree
         size_type size(){
-            return _size;
+            return this->_size;
         }
 
         node*   get_root(){
-            return root_node;
+            return this->root_node;
         }
-
-
 
         /*makeNode function takes a pair(value_type)
         that allocate a node, construct it, initialized all the node's elements 
@@ -160,39 +151,40 @@ namespace ft {
             return new_node;
         }
 
-        // node*   addinTree(node* start, node* new_node)
-        // {
-        //     node*   it = start;
-        //     node*   parent = nullptr;
-        //     this->_size++;
-        //     if (new_node == nullptr || root_node == nullptr)
-        //     {
-        //         root_node = new_node;
-        //         root_node->parent = nullptr;
-        //         end_node->left = root_node;
-        //     }
-        //     else {
-        //         while (it != nullptr)
-        //         {
-        //             parent = it;
-        //             if (new_node->value.first == it->value.first)
-        //             {
-        //                 this->_size--;
-        //                 return nullptr;//check this
-        //             }
-        //             else if (compare_object(new_node->value, it->value))
-        //                 it = it->left;
-        //             else
-        //                 it = it->right;
-        //         }
-        //         if (compare_object(new_node->value, parent->value))
-        //             parent->left = new_node;
-        //         else
-        //             parent->right = new_node;
-        //     }
-        //     updateBalance(new_node);
-        //     return new_node;
-        // }
+        node*   addinTree(node* start, node* new_node)
+        {
+            node*   it = start;
+            node*   parent = nullptr;
+            this->_size++;
+            if (root_node == nullptr || root_node == end_node)
+            {
+                root_node = new_node;
+                root_node->parent = end_node;
+                end_node->left = root_node;
+            }
+            else {
+                while (it != nullptr)
+                {
+                    parent = it;
+                    if (new_node->value.first == it->value.first)
+                    {
+                        this->_size--;
+                        return nullptr;
+                    }
+                    else if (compare_object(new_node->value, it->value))
+                        it = it->left;
+                    else
+                        it = it->right;
+                }
+                if (compare_object(new_node->value, parent->value))
+                    parent->left = new_node;
+                else
+                    parent->right = new_node;
+                new_node->parent = parent;
+            }
+            updateBalance(new_node);
+            return new_node;
+        }
 
         //search for a value from a starting node
         node*   searchinTree(node*  start, const key_type& key_value)
@@ -221,7 +213,6 @@ namespace ft {
         node*   search(const value_type&  value_type) const{
             return(searchinTree(root_node, value_type.first));
         }
-
 
 
         node*	leftRotation(node* _node)
@@ -410,8 +401,16 @@ namespace ft {
 
 
 
-
-
+        void    swap(_tree p)
+        {
+            node* tmp;
+            tmp = this->end_node;
+            this->end_node = p.end_node;
+            p.end_node = tmp->end_node;
+            tmp = this->root_node;
+            this->root_node = p.root_node;
+            p.root_node = tmp->root_node;
+        }
 
         void destroy(node*  root)
         {
@@ -433,6 +432,8 @@ namespace ft {
         //         root_node->left = end;
         //     }
         // }
+
+
 
 
 
