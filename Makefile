@@ -19,7 +19,9 @@ HEADERS			=  enable_if.hpp \
 				   reverse_iterator.hpp \
 				   vector.hpp \
 				   viterator.hpp \
-				   stack.hpp
+				   stack.hpp \
+				   map_iterator.hpp \
+				   map_reverse_iterator.hpp \
 				   
 					
 SRCS			=  test.cpp  \

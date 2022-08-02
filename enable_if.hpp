@@ -1,7 +1,7 @@
 #ifndef ENABLE_IF_HPP
 #define ENABLE_IF_HPP
 
-/* NOTE: enable_if is a specialized tenplate
+/* NOTE: enable_if is a specialized template
 define as :
 */
 
