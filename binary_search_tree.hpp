@@ -50,6 +50,7 @@ namespace ft {
             typedef value_type*													pointer;
             typedef	value_type&													reference;    
             typedef	const pointer												const_pointer;
+            typedef size_t                                                      size_type;
 
 
         private:
@@ -436,6 +437,20 @@ namespace ft {
 
 
 
+        size_type max_size() const
+        {
+            return node_allocator(allocator).max_size();
+        }
+
+        void	swap(_tree& x)
+        {
+            node*	tmp = this->end_node;
+            this->end_node = x.end_node;
+            x.end_node = tmp;
+            tmp = this->root_node;
+            this->root_node = x.root_node;
+            x.root_node = tmp;
+		};
 
         //make it private
         public:

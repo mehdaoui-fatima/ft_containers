@@ -1,6 +1,7 @@
 #ifndef	MAP_ITERATOR
 #define	MAP_ITERATOR
 #include "helpers.hpp"
+#include "binary_search_tree.hpp"
 
 template <class T, class nodePointer >
 class tree_iterator

@@ -1,5 +1,0 @@
-make: Entering directory `/Users/fmehdaou/Desktop/ft_containers'
-clang++ -Wall -Wextra -Werror -std=c++98 -o test.o -c test.cpp
-clang++ -Wall -Wextra -Werror -std=c++98 test.o -o containers
-make: Leaving directory `/Users/fmehdaou/Desktop/ft_containers'
- 
