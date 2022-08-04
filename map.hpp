@@ -1,4 +1,3 @@
-
 #ifndef MAP_HPP
 #define MAP_HPP
 #include <memory>
@@ -8,9 +7,7 @@
 #include "map_reverse_iterator.hpp"
 
 
-
 namespace ft {
-
 template < class Key,         
            class T,
            class Compare = std::less<Key>,
@@ -128,8 +125,8 @@ template < class Key,
 		if(tmp == nullptr)
 		{
 			value_type p = ft::make_pair(k, mapped_type());
-			tmp = t.makeNode(p);
-			t.addinTree(tmp);
+			tmp = t.create_node(p);
+			t.add_node(tmp);
 		}
 		else
 			return tmp->value.second;
@@ -147,8 +144,8 @@ template < class Key,
 		}
 		else
 		{
-			nodePointer noder = t.makeNode(val);
-			tmp = t.addinTree(noder);
+			nodePointer noder = t.create_node(val);
+			tmp = t.add_node(noder);
 			ft::pair<iterator, bool> res(iterator(tmp), true);
 			return res;
 		}
@@ -172,7 +169,28 @@ template < class Key,
 		}
 	}
 
-	//TODO find
+	//return the elelmnt if found end otherwise
+	iterator find(const key_type& k)
+	{
+		nodePointer	node;
+		node = t.search(k);
+		if (node == nullptr)
+			return end();
+		else
+			return (iterator(node));
+	}
+
+	const_iterator find(const key_type& k) const
+	{
+		nodePointer	node;
+		node = t.search(k);
+		if (node == nullptr)
+			return end();
+		else
+			return (const_iterator(node));
+	}
+
+
 	void erase(iterator position)
 	{
 		value_type d = *position;
@@ -204,15 +222,55 @@ template < class Key,
 		}
 	}
 
-	void swap (map& x)
+
+	void swap(map& x)
 	{
-		t.swap();
+		swap(x.t);
 	}
 
+	void clear()
+	{
+		t.clear();
+	}
 
+	//return the duplication ok a key 1 if found 0 otherwise (map have unique keys)
+	size_type count(const key_type& k) const
+	{
+		nodepointer node = t.search(k);
+		if(node == nullptr)
+			return(0);
+		return (1);
+	}
 
+	iterator lower_bound(const key_type& k)
+	{
+		return (iterator(t.lower_bound(k));)
+	}
 
+	const_iterator lower_bound (const key_type& k) const
+	{
+		return (const_iterator(t.lower_bound(k)));
+	}
 
+	iterator upper_bound(const key_type& k)
+	{
+		return(iterator(upper_bound(k)));
+	}
+
+	const_iterator upper_bound(const key_type& k) const
+	{
+		return (const_iterator(upper_bound(k)));
+	}
+
+	pair<const_iterator, const_iterator> equal_range(const key_type& k) const
+	{
+		return ft::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
+	}
+
+	pair<iterator, iterator>	equal_range(const key_type& k)
+	{
+		return ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
+	}
 
 	protected:
 		tree t;

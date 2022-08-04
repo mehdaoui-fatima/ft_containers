@@ -1,10 +1,9 @@
-
 #ifndef BST_HPP
 #define BST_HPP
 #include "pair.hpp"
 #include "helpers.hpp"
 #include <cstddef>
-#include<memory>
+#include <memory>
 #include<map>
 
 
@@ -46,19 +45,16 @@ namespace ft {
             typedef	_node<value_type>											node;
             typedef	typename	allocator_type::template rebind<node>::other	node_allocator;//from map 
             typedef	node*														node_ptr;
-
             typedef value_type*													pointer;
             typedef	value_type&													reference;    
             typedef	const pointer												const_pointer;
-            typedef size_t                                                      size_type;
-
 
         private:
             size_type			_size;
             const key_compare	&compare_object;
             const Allocator		&allocator;
-            node				*root_node;
-            node	            *end_node;
+            node*				root_node;
+            node*	            end_node;
 
         _tree(const key_compare& comp = key_compare(), 
             const allocator_type &alloc = allocator_type()) 
@@ -75,15 +71,15 @@ namespace ft {
         }
 
         node*   begin(){
-            if (root_node == end_node)
+            if (this->root_node == this->end_node)
                 return (this->end_node);
-              return (ft::find_min(root_node));
+              return (ft::find_min(this->root_node));
         }
 
         node* begin() const{
-            if (root_node == end_node)
-                return(end_node);
-            return (ft::find_min(root_node));
+            if (this->root_node == this->end_node)
+                return(this->end_node);
+            return (ft::find_min(this->root_node));
         }
 
         node*   end(){
@@ -99,25 +95,24 @@ namespace ft {
             return this->_size;
         }
 
-        node*   get_root(){
-            return this->root_node;
-        }
 
-        /*makeNode function takes a pair(value_type)
-        that allocate a node, construct it, initialized all the node's elements 
+        /*create_node function takes a pair(value_type)
+        that allocate a node, construct it, initialized all the node's elements and
         return the allocation of that node*/
-        node*	makeNode(value_type	t)
+        node*	create_node(value_type	t)
         {
-            node	*tmp = node_allocator(allocator).allocate(1);
-            node_allocator(allocator).construct(tmp, t);
-            tmp->parent = nullptr;
-            tmp->right = nullptr;
-            tmp->left = nullptr;
-            tmp->balance_factor = 0;
-            return tmp;
+            node	*new_node;
+
+            new_node = node_allocator(allocator).allocate(1);
+            node_allocator(allocator).construct(new_node, t);
+            new_node->parent = nullptr;
+            new_node->right = nullptr;
+            new_node->left = nullptr;
+            new_node->balance_factor = 0;
+            return( new_node);
         }
 
-        node*   addinTree(node* new_node)
+        node*   add_node(node* new_node)
         {
             node*   it = root_node;
             node*   parent = nullptr;
@@ -152,7 +147,7 @@ namespace ft {
             return new_node;
         }
 
-        node*   addinTree(node* start, node* new_node)
+        node*   add_node(node* start, node* new_node)
         {
             node*   it = start;
             node*   parent = nullptr;
@@ -187,6 +182,8 @@ namespace ft {
             return new_node;
         }
 
+        //TODO implement add_node_with_hint()
+
         //search for a value from a starting node
         node*   searchinTree(node*  start, const key_type& key_value)
         {
@@ -215,29 +212,25 @@ namespace ft {
             return(searchinTree(root_node, value_type.first));
         }
 
-
         node*	leftRotation(node* _node)
         {
             node*   rootP = _node->parent;
             node*	nodeB = _node->right;
             if (rootP->left ==_node)
                 rootP->left = nodeB;
-            else{
+            else
                 rootP->right = nodeB;
-            }
             nodeB->parent = rootP;
-            if (rootP == end_node){
+            if (rootP == end_node)
                 root_node = nodeB;
-            }
             _node->right = nodeB->left;	
-            if(nodeB->left != nullptr){
+            if(nodeB->left != nullptr)
                 nodeB->left->parent = _node;
-            }
-                nodeB->left = _node;
-                _node->parent = nodeB;
-                _node->balance_factor = _node->balance_factor + 1 - std::min(0, nodeB->balance_factor);
-                nodeB->balance_factor = nodeB->balance_factor + 1 + std::max(_node->balance_factor, 0);
-                return nodeB;
+            nodeB->left = _node;
+            _node->parent = nodeB;
+            _node->balance_factor = _node->balance_factor + 1 - std::min(0, nodeB->balance_factor);
+            nodeB->balance_factor = nodeB->balance_factor + 1 + std::max(_node->balance_factor, 0);
+            return nodeB;
             };
 
         //return the new note, implement balance factor
@@ -266,7 +259,7 @@ namespace ft {
         node*   rebalance(node* _node)
         {
             node*   tmp;
-            // - heavy on right
+            // - heavy on right, need left rotation
             if (_node->balance_factor < 0 )
             {
                 if(_node->right->balance_factor > 0)
@@ -277,8 +270,8 @@ namespace ft {
                 else 
                     tmp = leftRotation(_node);
             }
-            //+ heavy on left
-            else{
+            //+ heavy on left, need right rotation
+            else {
                 if(_node->left->balance_factor < 0)
                 {
                     leftRotation(_node->left);
@@ -423,18 +416,17 @@ namespace ft {
                 node_allocator(allocator).deallocate(root, 1);
             }
         }
-        //TODO implement clear
-        // void clear()
-        // {
-        //     if (root_node != end_node)
-        //     {
-        //         destroy(root_node);
-        //         root_node = end_node;
-        //         root_node->left = end;
-        //     }
-        // }
+       
 
-
+        void clear(){
+        if (this->root_node != this->end_node)
+        {
+            destroy(this->root_node);
+            _size = 0;
+            this->root_node = this->end_node;
+            this->end_node->left = this->root_node;
+        }
+    };
 
 
         size_type max_size() const
@@ -452,9 +444,11 @@ namespace ft {
             x.root_node = tmp;
 		};
 
+        ~_tree(){};
+
         //make it private
         public:
-            void prettyPrint() {
+            void print() {
                 printHelper(this->root_node, "", true);
             }
             void printHelper(node* root, std::string indent, bool last) {
