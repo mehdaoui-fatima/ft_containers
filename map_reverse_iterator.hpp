@@ -1,9 +1,9 @@
 
 #ifndef MAP_REVERSE_ITERATOR_HPP
 #define MAP_REVERSE_ITERATOR_HPP
-
+namespace ft {
 template <class Iterator>
-class	tree_reverse_iter : public ft::iterator< std::bidirectional_iterator_tag,
+class	tree_reverse_iter : public iterator< std::bidirectional_iterator_tag,
                                 typename iterator_traits<Iterator>::value_type,
                                 typename iterator_traits<Iterator>::difference_type,
                                 typename iterator_traits<Iterator>::pointer,
@@ -80,6 +80,6 @@ class	tree_reverse_iter : public ft::iterator< std::bidirectional_iterator_tag,
         return	!(this->base() == rhs.base());
     };
 };
-
+}
 
 #endif

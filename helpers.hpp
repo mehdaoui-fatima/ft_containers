@@ -1,4 +1,5 @@
-
+#ifndef HELPERS_HPP
+#define HELPERS_HPP
 namespace ft{
 
     template<class nodePointer>
@@ -51,3 +52,4 @@ namespace ft{
 
 }
 
+#endif

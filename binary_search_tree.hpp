@@ -56,6 +56,7 @@ namespace ft {
             node*				root_node;
             node*	            end_node;
 
+        public:
         _tree(const key_compare& comp = key_compare(), 
             const allocator_type &alloc = allocator_type()) 
             : _size(0), compare_object(comp),allocator(alloc)
@@ -91,7 +92,7 @@ namespace ft {
         }
 
         //return the size of the tree
-        size_type size(){
+        size_type size() const {
             return this->_size;
         }
 
@@ -182,16 +183,16 @@ namespace ft {
             return new_node;
         }
 
-        //TODO implement add_node_with_hint()
 
         //search for a value from a starting node
-        node*   searchinTree(node*  start, const key_type& key_value)
+        node*   searchinTree(node*  start, const key_type& key_value) const
         {
             node*   it = start;
 
+		        std::cout << "heloo" << std::endl;
             while(it != nullptr && it != root_node)
             {
-                if (start->value.fisrt == key_value)
+                if (start->value.first == key_value)
                     return it;
                 else if (compare_object(it->value, key_value))
                     it = it->left;
@@ -411,21 +412,21 @@ namespace ft {
             node*   it = root;
             if(it != nullptr)
             {
-                destroy(it->right);
                 destroy(it->left);
+                destroy(it->right);
                 node_allocator(allocator).deallocate(root, 1);
             }
         }
        
 
         void clear(){
-        if (this->root_node != this->end_node)
-        {
-            destroy(this->root_node);
-            _size = 0;
-            this->root_node = this->end_node;
-            this->end_node->left = this->root_node;
-        }
+            if (this->root_node != this->end_node)
+            {
+                destroy(this->root_node);
+                _size = 0;
+                this->root_node = this->end_node;
+                this->end_node->left = this->root_node;
+            }
     };
 
 

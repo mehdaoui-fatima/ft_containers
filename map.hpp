@@ -30,10 +30,10 @@ template < class Key,
 		typedef		_node<value_type>											node;
 		typedef		node*														nodePointer;
 		typedef		typename	allocator_type::template rebind<node>::other	node_allocator;
-		typedef		typename	tree_iterator<value_type, nodePointer>			iterator;
-		typedef		typename	tree_iterator<const_value_type, nodePointer>	const_iterator;
-		typedef		typename	tree_reverse_iter<iterator>						reverse_iterator;
-		typedef		typename	tree_reverse_iter<const_iterator>				const_reverse_iterator;
+		typedef		tree_iterator<value_type, nodePointer>			iterator;
+		typedef		tree_iterator<const_value_type, nodePointer>	const_iterator;
+		typedef		tree_reverse_iter<iterator>						reverse_iterator;
+		typedef		tree_reverse_iter<const_iterator>				const_reverse_iterator;
 		class value_compare : public std::binary_function<value_type, value_type, bool>
 		{
 			friend class map;
@@ -54,11 +54,22 @@ template < class Key,
 		typedef		_tree<value_type, value_compare, allocator_type>				tree;
 
 	
+		explicit map (const key_compare& comp = key_compare(),
+				const allocator_type& alloc = allocator_type()):t(compare_object, allocator), allocator(alloc), compare_object(comp)  {}
 
+		map& operator= (const map& x){
+			if (this != &x){
 
-	//TODO constructors
-
-
+				this->t.clear();
+				this->compare_object = x.compare_object;
+				this->allocator = x.allocator;
+				insert(x.begin(), x.end());
+			}
+			return *this;
+		};
+		map (const map& x):t(compare_object, allocator), compare_object(x.compare_object), allocator(x.allocator){
+				*this = x;
+		};
 
 	//iterators
 	iterator	begin()
@@ -128,10 +139,9 @@ template < class Key,
 			tmp = t.create_node(p);
 			t.add_node(tmp);
 		}
-		else
 			return tmp->value.second;
 	}
-	
+
 	//Modifiers
 
 	pair<iterator, bool> insert(const value_type& val)
@@ -144,6 +154,7 @@ template < class Key,
 		}
 		else
 		{
+
 			nodePointer noder = t.create_node(val);
 			tmp = t.add_node(noder);
 			ft::pair<iterator, bool> res(iterator(tmp), true);
@@ -151,12 +162,11 @@ template < class Key,
 		}
 	}
 
-	//TODO need implementation
-	// iterator insert (iterator position, const value_type& val)
-	// {
 
-	// }
-
+	iterator insert(iterator position, const value_type& val)
+	{
+		return (insert(val).first);
+	}
 
 
 	template <class InputIterator>
@@ -207,7 +217,7 @@ template < class Key,
 			return (0);
 		else
 		{
-			t.delete(k);
+			// t.delete(k);
 			return (1);
 		}
 	}
@@ -236,7 +246,7 @@ template < class Key,
 	//return the duplication ok a key 1 if found 0 otherwise (map have unique keys)
 	size_type count(const key_type& k) const
 	{
-		nodepointer node = t.search(k);
+		nodePointer node = t.search(k);
 		if(node == nullptr)
 			return(0);
 		return (1);
@@ -244,7 +254,7 @@ template < class Key,
 
 	iterator lower_bound(const key_type& k)
 	{
-		return (iterator(t.lower_bound(k));)
+		return (iterator(t.lower_bound(k)));
 	}
 
 	const_iterator lower_bound (const key_type& k) const
