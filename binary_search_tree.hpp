@@ -54,6 +54,7 @@ namespace ft {
             const key_compare	&compare_object;
             const Allocator		&allocator;
             node*				root_node;
+        public:
             node*	            end_node;
 
         public:
@@ -74,7 +75,7 @@ namespace ft {
         node*   begin(){
             if (this->root_node == this->end_node)
                 return (this->end_node);
-              return (ft::find_min(this->root_node));
+            return (ft::find_min(this->root_node));
         }
 
         node* begin() const{
@@ -188,13 +189,11 @@ namespace ft {
         node*   searchinTree(node*  start, const key_type& key_value) const
         {
             node*   it = start;
-
-		        std::cout << "heloo" << std::endl;
-            while(it != nullptr && it != root_node)
+            while(it != nullptr && it != end_node)
             {
-                if (start->value.first == key_value)
+                if (it->value.first == key_value)
                     return it;
-                else if (compare_object(it->value, key_value))
+                if (compare_object(key_value, it->value))
                     it = it->left;
                 else
                     it = it->right;
@@ -345,17 +344,53 @@ namespace ft {
                     node *tmp = ft::find_min(_node->right);
                     value_type val = tmp->value;
                     node *nodeP = tmp->parent;
-                    _node->right = delete_node(_node->right, key);
-                    tmp = deleteBalance(nodeP, val->first);
+                    _node->right = delete_node(_node->right, tmp->value.first);
+                    tmp = delete_balance(nodeP, val.first);
                     node_allocator(allocator).construct(_node, val);
                     if (tmp != nullptr) // illustrateit
                         _node = tmp;
                 }
-                return _node;
             }
+                return _node;
         }
 
+        node*	delete_balance(node*	node, const key_type& key)
+        {
+            if (node != this->end_node)
+            {
+                if (key < node->value.first)
+                        node->balance_factor -= 1;
+                else if (key > node->value.first)
+                        node->balance_factor += 1;
+                if (node->balance_factor < -1 || node->balance_factor > 1){
+                        return rebalance(node);
+                }
+                if (node->balance_factor == 0)
+                    delete_balance(node->parent, key);
+            }
+            return nullptr;
+        }
 
+        //delete
+        void	delete_(const key_type& key)
+        {
+            node* t = this->search(key);
+            node* tp = t->parent;
+            bool	stat = true;
+
+            if (t->left == nullptr || t->right == nullptr)
+                stat = false;
+            this->root_node = delete_node(root_node, key);
+            if (root_node != nullptr && root_node != end_node)
+                _size--;
+            if (stat == false){
+                delete_balance(t, key);
+            }
+            if (root_node == nullptr){
+                root_node = end_node;
+                end_node->left = root_node;
+            }
+        }
 
 
         node*   upper_bound(const key_type& key)

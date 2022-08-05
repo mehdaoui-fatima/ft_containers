@@ -6,7 +6,7 @@
 #include "./stack.hpp"
 #include <map>
 #include <utility>
-#define NEXTD std::cout << "<---------- ---------- ---------- ---------- ---------- ----------|---------- ---------- ---------- ---------- ---------- ----------|" << std::endl
+#define NEXTD std::cout << "<---------- ----------|---------- ----------|" << std::endl
 
 #ifndef PH
 #define PH ft
@@ -29,14 +29,14 @@ int main()
 		first['c']=50;
 		first['d']=70;
 
-		// PH::map<char,int> second (first.begin(),first.end());
+		PH::map<char,int> second (first.begin(),first.end());
 
-		// PH::map<char,int> third (second);
+		PH::map<char,int> third(first);
 
-		// PH::map<char,int,classcomp> fourth;                 // class as Compare
+		PH::map<char,int,classcomp> fourth;                 // class as Compare
 
-		// bool(*fn_pt)(char,char) = fncomp;
-		// PH::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+		bool(*fn_pt)(char,char) = fncomp;
+		PH::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
 
 	}
 	{
@@ -51,104 +51,105 @@ int main()
 		std::cout << "Size of second: " << second.size() << '\n';
 	}
 	NEXTD;
-	// {
-	// 	PH::map<char, int> mymap;
-	// 	mymap['b'] = 100;
-	// 	mymap['a'] = 200;
-	// 	mymap['c'] = 300;
-	// 	// show content:
-	// 	for (PH::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// 	std::cout << "mymap.size() is " << mymap.size() << '\n';
-	// }
-	// NEXTD;
-	// {
-	// 	PH::map<char, std::string> mymap;
-	// 	mymap['a'] = "an element";
-	// 	mymap['b'] = "another element";
-	// 	mymap['c'] = mymap['b'];
-	// 	std::cout << "mymap['a'] is " << mymap['a'] << '\n';
-	// 	std::cout << "mymap['b'] is " << mymap['b'] << '\n';
-	// 	std::cout << "mymap['c'] is " << mymap['c'] << '\n';
-	// 	std::cout << "mymap['d'] is " << mymap['d'] << '\n';
-	// 	std::cout << "mymap now contains " << mymap.size() << " elements.\n";
-	// 	std::cout << "mymap.size() is " << mymap.size() << '\n';
-	// 	// mymap.prettyPrint();
-	// }
-	// NEXTD;
-	// {
-	// 	PH::map<char, int> mymap;
-	// 	// first insert function version (single parameter):
-	// 	mymap.insert(PH::pair<char, int>('a', 100));
-	// 	mymap.insert(PH::pair<char, int>('z', 200));
-	// 	PH::pair<PH::map<char, int>::iterator, bool> ret;
-	// 	ret = mymap.insert(PH::pair<char, int>('z', 500));
-	// 	if (ret.second == false)
-	// 	{
-	// 		std::cout << "element 'z' already existed";
-	// 		std::cout << " with a value of " << ret.first->second << '\n';
-	// 	}
-	// 	else
-	// 	{
-	// 		std::cout << "element 'z' created";
-	// 		std::cout << " with a value of " << ret.first->second << '\n';
-	// 	}
-	// 	// second insert function version (with hint position):
-	// 	PH::map<char, int>::iterator it = mymap.begin();
-	// 	mymap.insert(it, PH::pair<char, int>('b', 300)); // max efficiency inserting
-	// 	mymap.insert(it, PH::pair<char, int>('c', 400));
-	// 	// third insert function version (range insertion):
-	// 	PH::map<char, int> anothermap;
-	// 	anothermap.insert(mymap.begin(), mymap.find('c'));
-	// 	std::cout << mymap.size() << std::endl;
-	// 	// showing contents:
-	// 	std::cout << "mymap contains:\n";
-	// 	for (it = mymap.begin(); it != mymap.end(); ++it)
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// 	std::cout << "anothermap contains:\n";
-	// 	for (it = anothermap.begin(); it != anothermap.end(); ++it)
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// 	// mymap.prettyPrint();
-	// }
-	// NEXTD;
-	// {
-	// 	PH::map<char, int> mymap;
-	// 	PH::map<char, int>::iterator it;
-	// 	mymap['a'] = 50;
-	// 	mymap['b'] = 100;
-	// 	mymap['c'] = 150;
-	// 	mymap['d'] = 200;
-	// 	it = mymap.find('b');
-	// 	if (it != mymap.end())
-	// 		mymap.erase(it);
-	// 	// print content:
-	// 	std::cout << "elements in mymap:" << '\n';
-	// 	std::cout << "a => " << mymap.find('a')->second << '\n';
-	// 	std::cout << "c => " << mymap.find('c')->second << '\n';
-	// 	std::cout << "d => " << mymap.find('d')->second << '\n';
-	// 	// std::cout << "d => " << mymap.find('b')->second << '\n';
-	// }
-	// NEXTD;
-	// {
-	// 	PH::map<char, int> mymap;
-	// 	PH::map<char, int>::iterator it;
-	// 	// insert some values:
-	// 	mymap['a'] = 10;
-	// 	mymap['b'] = 20;
-	// 	mymap['c'] = 30;
-	// 	mymap['d'] = 40;
-	// 	mymap['e'] = 50;
-	// 	mymap['f'] = 60;
-	// 	it = mymap.find('b');
-	// 	mymap.erase(it);  // erasing by iterator
-	// 	mymap.erase('c'); // erasing by key
-	// 	// mymap.prettyPrint();
-	// 	it = mymap.find('e');
-	// 	mymap.erase(it, mymap.end()); // erasing by range
-	// 	// show content:
-	// 	for (it = mymap.begin(); it != mymap.end(); ++it)
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// }
+	{
+		PH::map<char, int> mymap;
+		mymap['b'] = 100;
+		mymap['a'] = 200;
+		mymap['c'] = 300;
+		// show content:
+		for (PH::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); it++){
+			std::cout << it->first << " => " << it->second << '\n';
+		}
+		std::cout << "mymap.size() is " << mymap.size() << '\n';
+	}
+	NEXTD;
+	{
+		PH::map<char, std::string> mymap;
+		mymap['a'] = "an element";
+		mymap['b'] = "another element";
+		mymap['c'] = mymap['b'];
+		std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+		std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+		std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+		std::cout << "mymap['d'] is " << mymap['d'] << '\n';
+		std::cout << "mymap now contains " << mymap.size() << " elements.\n";
+		std::cout << "mymap.size() is " << mymap.size() << '\n';
+		// mymap.prettyPrint();
+	}
+	NEXTD;
+	{
+		PH::map<char, int> mymap;
+		// first insert function version (single parameter):
+		mymap.insert(PH::pair<char, int>('a', 100));
+		mymap.insert(PH::pair<char, int>('z', 200));
+		PH::pair<PH::map<char, int>::iterator, bool> ret;
+		ret = mymap.insert(PH::pair<char, int>('z', 500));
+		if (ret.second == false)
+		{
+			std::cout << "element 'z' already existed";
+			std::cout << " with a value of " << ret.first->second << '\n';
+		}
+		else
+		{
+			std::cout << "element 'z' created";
+			std::cout << " with a value of " << ret.first->second << '\n';
+		}
+		// second insert function version (with hint position):
+		PH::map<char, int>::iterator it = mymap.begin();
+		mymap.insert(it, PH::pair<char, int>('b', 300)); // max efficiency inserting
+		mymap.insert(it, PH::pair<char, int>('c', 400));
+		// third insert function version (range insertion):
+		PH::map<char, int> anothermap;
+		anothermap.insert(mymap.begin(), mymap.find('c'));
+		std::cout << mymap.size() << std::endl;
+		// showing contents:
+		std::cout << "mymap contains:\n";
+		for (it = mymap.begin(); it != mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+		std::cout << "anothermap contains:\n";
+		for (it = anothermap.begin(); it != anothermap.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+		// mymap.prettyPrint();
+	}
+	NEXTD;
+	{
+		PH::map<char, int> mymap;
+		PH::map<char, int>::iterator it;
+		mymap['a'] = 50;
+		mymap['b'] = 100;
+		mymap['c'] = 150;
+		mymap['d'] = 200;
+		it = mymap.find('b');
+		if (it != mymap.end())
+			mymap.erase(it);
+		// print content:
+		std::cout << "elements in mymap:" << '\n';
+		std::cout << "a => " << mymap.find('a')->second << '\n';
+		std::cout << "c => " << mymap.find('c')->second << '\n';
+		std::cout << "d => " << mymap.find('d')->second << '\n';
+		// std::cout << "d => " << mymap.find('b')->second << '\n';
+	}
+	NEXTD;
+	{
+		PH::map<char, int> mymap;
+		PH::map<char, int>::iterator it;
+		// insert some values:
+		mymap['a'] = 10;
+		mymap['b'] = 20;
+		mymap['c'] = 30;
+		mymap['d'] = 40;
+		mymap['e'] = 50;
+		mymap['f'] = 60;
+		it = mymap.find('b');
+		mymap.erase(it);  // erasing by iterator
+		mymap.erase('c'); // erasing by key
+		// mymap.prettyPrint();
+		it = mymap.find('e');
+		mymap.erase(it, mymap.end()); // erasing by range
+		// show content:
+		for (it = mymap.begin(); it != mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+	}
 	// NEXTD;
 	// {
 	// 	PH::map<char, int> foo, bar;
@@ -179,25 +180,25 @@ int main()
 	// 		std::cout << it->first << " => " << it->second << '\n';
 	// 	} while (mymap.value_comp()(*it++, highest));
 	// }
-	// NEXTD;
-	// {
-	// 	PH::map<char, int> mymap;
-	// 	PH::map<char, int>::iterator itlow, itup;
-	// 	mymap['a'] = 20;
-	// 	mymap['b'] = 40;
-	// 	mymap['c'] = 60;
-	// 	mymap['d'] = 80;
-	// 	mymap['f'] = 100;
-	// 	itlow = mymap.lower_bound('f'); // itlow points to b
-	// 	itup = mymap.upper_bound('d');	// itup points to e (not d!)
+	NEXTD;
+	{
+		PH::map<char, int> mymap;
+		PH::map<char, int>::iterator itlow, itup;
+		mymap['a'] = 20;
+		mymap['b'] = 40;
+		mymap['c'] = 60;
+		mymap['d'] = 80;
+		mymap['f'] = 100;
+		itlow = mymap.lower_bound('f'); // itlow points to b
+		itup = mymap.upper_bound('d');	// itup points to e (not d!)
 
-	// 	std::cout << itlow->first << std::endl;
-	// 	std::cout << itup->first << std::endl;
-	// 	mymap.erase(itlow, itup); // erases [itlow,itup)
-	// 	// print content:
-	// 	for (PH::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
-	// 		std::cout << it->first << " => " << it->second << '\n';
-	// }
+		std::cout << itlow->first << std::endl;
+		std::cout << itup->first << std::endl;
+		mymap.erase(itlow, itup); // erases [itlow,itup)
+		// print content:
+		for (PH::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << '\n';
+	}
 	// NEXTD;
 	// {
 	// 	PH::map<char, int> mymap;
@@ -211,7 +212,7 @@ int main()
 	// 	std::cout << "upper bound points to: ";
 	// 	std::cout << ret.second->first << " => " << ret.second->second << '\n';
 	// }
-	// NEXTD;
+	NEXTD;
 	// {
 	// 	int psize;
 	// 	PH::map<char, int> mymap;

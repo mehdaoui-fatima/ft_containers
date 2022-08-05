@@ -10,11 +10,11 @@ namespace ft
 	{
 
 	public:
-		typedef T value_ype;
+		typedef T value_type;
 		typedef T &reference;
 		typedef T *pointer;
-		typedef ptrdiff_t diffrence_type;
-		typedef std::bidirectional_iterator_tag iterator_tag;
+		typedef ptrdiff_t difference_type;
+		typedef std::bidirectional_iterator_tag iterator_category;
 
 		// constructors
 		tree_iterator() : _node(nullptr){};
@@ -38,6 +38,7 @@ namespace ft
 		tree_iterator &operator++()
 		{
 			nodePointer tmp = ft::next_node(this->_node);
+
 			this->_node = tmp;
 			return (*this);
 		}
@@ -53,7 +54,7 @@ namespace ft
 		tree_iterator &operator--()
 		{
 			nodePointer tmp = ft::prev_node(this->_node);
-			this->node = tmp;
+			this->_node = tmp;
 			return (*this);
 		}
 

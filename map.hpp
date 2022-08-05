@@ -53,13 +53,11 @@ template < class Key,
 		};
 		typedef		_tree<value_type, value_compare, allocator_type>				tree;
 
-	
-		explicit map (const key_compare& comp = key_compare(),
+		explicit map(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type()):t(compare_object, allocator), allocator(alloc), compare_object(comp)  {}
 
-		map& operator= (const map& x){
+		map& operator=(const map& x){
 			if (this != &x){
-
 				this->t.clear();
 				this->compare_object = x.compare_object;
 				this->allocator = x.allocator;
@@ -67,10 +65,23 @@ template < class Key,
 			}
 			return *this;
 		};
-		map (const map& x):t(compare_object, allocator), compare_object(x.compare_object), allocator(x.allocator){
+
+		map(const map& x):t(compare_object, allocator), compare_object(x.compare_object), allocator(x.allocator){
 				*this = x;
 		};
 
+		template <class InputIterator>
+		map(InputIterator first, InputIterator last,
+				const key_compare& comp = key_compare(),
+				const allocator_type& alloc = allocator_type()):t(compare_object), compare_object(comp), allocator(alloc)
+		{
+			insert(first, last);
+		};
+
+		~map(){
+			this->clear();
+			node_allocator(allocator).deallocate(t.end_node, 1);
+		}
 	//iterators
 	iterator	begin()
 	{
@@ -139,22 +150,22 @@ template < class Key,
 			tmp = t.create_node(p);
 			t.add_node(tmp);
 		}
-			return tmp->value.second;
+		return tmp->value.second;
 	}
 
 	//Modifiers
 
 	pair<iterator, bool> insert(const value_type& val)
 	{
+	
 		nodePointer tmp = t.search(val);
-		if(tmp != nullptr)
+		if (tmp != nullptr)
 		{
 			ft::pair<iterator, bool> res(iterator(tmp), false);
 			return res;
 		}
 		else
 		{
-
 			nodePointer noder = t.create_node(val);
 			tmp = t.add_node(noder);
 			ft::pair<iterator, bool> res(iterator(tmp), true);
@@ -170,7 +181,7 @@ template < class Key,
 
 
 	template <class InputIterator>
-	void insert (InputIterator first, InputIterator last)
+	void insert(InputIterator first, InputIterator last)
 	{
 		while(first != last)
 		{
@@ -205,7 +216,7 @@ template < class Key,
 	{
 		value_type d = *position;
 		if (find(d.first) != end())
-			t.delete_node(d);
+			t.delete_(d.first);
 	}
 
 	//returned the number of the value erased or deleted
@@ -217,7 +228,7 @@ template < class Key,
 			return (0);
 		else
 		{
-			// t.delete(k);
+			t.delete_(k);
 			return (1);
 		}
 	}
@@ -228,10 +239,9 @@ template < class Key,
 		while(first != last)
 		{
 			iterator it = first++;
-			erase(it);
+			this->erase(it);
 		}
 	}
-
 
 	void swap(map& x)
 	{

@@ -6,17 +6,15 @@ namespace ft{
     nodePointer find_min(nodePointer node){
         nodePointer it;
         it = node;
-
-        while(node->left != nullptr)
-            it = node->left;
+        while(it->left != nullptr)
+            it = it->left;
         return it;
     };
 
     template<class  nodePointer>
     nodePointer find_max(nodePointer node){
         nodePointer it;
-
-        it = node->right;
+        it = node;
         while(it->right != nullptr)
             it = it->right;
         return it;
@@ -31,7 +29,7 @@ namespace ft{
         while (tmp != nullptr && _node == tmp->right)
         {
             _node = tmp;
-            tmp = tmp->parent; 
+            tmp = tmp->parent;
         }
         return tmp;
 	};
