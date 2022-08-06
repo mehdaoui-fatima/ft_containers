@@ -387,6 +387,7 @@ namespace ft {
                 delete_balance(t, key);
             }
             if (root_node == nullptr){
+                _size = 0;
                 root_node = end_node;
                 end_node->left = root_node;
             }

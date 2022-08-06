@@ -1,13 +1,13 @@
 
 #ifndef MAP_REVERSE_ITERATOR_HPP
 #define MAP_REVERSE_ITERATOR_HPP
-#include "map_iterator.hpp"
+#include "iterator.hpp"
 #include "iterator_traits.hpp"
 
 
 namespace ft {
 template <class Iterator>
-class	tree_reverse_iter : public tree_iterator < std::bidirectional_iterator_tag,
+class	tree_reverse_iter : public iterator < std::bidirectional_iterator_tag,
 									typename iterator_traits<Iterator>::value_type,
 									typename iterator_traits<Iterator>::difference_type,
 									typename iterator_traits<Iterator>::pointer,

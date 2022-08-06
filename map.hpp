@@ -1,6 +1,7 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 #include <memory>
+#include <iostream>
 #include "pair.hpp"
 #include "binary_search_tree.hpp"
 #include "map_iterator.hpp"
@@ -85,7 +86,6 @@ template < class Key,
 			this->clear();
 			node_allocator(allocator).deallocate(t.end_node, 1);
 		}
-
 
 		//iterators
 		iterator	begin()
@@ -218,9 +218,12 @@ template < class Key,
 
 		void erase(iterator position)
 		{
+			if (position.base() == nullptr)
+				return ;
 			value_type d = *position;
-			if (find(d.first) != end())
+			if (find(d.first) != end()){
 				t.delete_(d.first);
+			}
 		}
 
 		//returned the number of the value erased or deleted
