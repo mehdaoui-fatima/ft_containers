@@ -469,27 +469,6 @@ namespace ft {
 
         ~_tree(){};
 
-        //make it private
-        // public:
-        //     void print() {
-        //         printHelper(this->root_node, "", true);
-        //     }
-        //     void printHelper(node* root, std::string indent, bool last) {
-        //     if (root != nullptr) {
-        //         std::cout << indent;
-        //         if (last) {
-        //             std::cout<<"R----";
-        //             indent += "     ";
-        //         } else {
-        //             std::cout<<"L----";
-        //             indent += "|    ";
-        //         }
-        //         std::cout<<root->value.first<<"( BF = "<<root->balance_factor<<")"<<std::endl;
-        //         printHelper(root->left, indent, false);
-        //         printHelper(root->right, indent, true);
-        //         }
-        //     }
-
     };
 
 
