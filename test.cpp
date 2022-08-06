@@ -11,7 +11,7 @@
 // #include "./Map/Map.hpp"
 
 #ifndef NS
-#define NS ft
+#define NS std
 #endif
 
 template <typename T>

@@ -1,12 +1,7 @@
 #ifndef IS_INTEGRAL_HPP
 #define IS_INTEGRAL_HPP
 
-//NOTE operator - const operator ???
-/*NOTE convertion function : convert from the object type
- to the type spwcified by the converstion_type 
-*/
 namespace ft {
-
     template <class T, T v>
     struct integral_constant
     {

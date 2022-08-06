@@ -53,7 +53,6 @@ template < class Key,
 				};
 		};
 
-		//TODO check this declaration
 		typedef		_tree<value_type, value_compare, allocator_type>				tree;
 
 		explicit map(const key_compare& comp = key_compare(),

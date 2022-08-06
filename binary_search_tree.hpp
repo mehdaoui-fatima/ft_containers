@@ -1,11 +1,10 @@
 #ifndef BST_HPP
 #define BST_HPP
+
 #include "pair.hpp"
 #include "helpers.hpp"
 #include <cstddef>
 #include <memory>
-#include<map>
-
 
 namespace ft {
     template <class _T>
@@ -17,7 +16,6 @@ namespace ft {
             _node<_T>   *right;
             _node<_T>   *left;
             int         balance_factor;
-            //example to illustrate 
             _node(const value_type  &p):value(p){};
             _node   &operator=(const _node &rhs){
                 this->value = rhs.value;
@@ -96,7 +94,6 @@ namespace ft {
         size_type size() const {
             return this->_size;
         }
-
 
         /*create_node function takes a pair(value_type)
         that allocate a node, construct it, initialized all the node's elements and
@@ -184,7 +181,6 @@ namespace ft {
             return new_node;
         }
 
-
         //search for a value from a starting node
         node*   searchinTree(node*  start, const key_type& key_value) const
         {
@@ -245,7 +241,6 @@ namespace ft {
             nodeB->parent = rootP;
             if (rootP == end_node)
                 root_node = nodeB;
-            //illustrate: with heavy sides
             nodeC->left = nodeB->right;	
             if(nodeB->right != nullptr)
                 nodeB->right->parent = nodeC;
@@ -305,7 +300,6 @@ namespace ft {
             }
         }
 
-
         //delete node in tree, with node is starting node
         node*   delete_node(node* _node, const key_type& key)
         {
@@ -320,7 +314,7 @@ namespace ft {
                 {
                     node_allocator(allocator).destroy(_node);
                     node_allocator(allocator).deallocate(_node, 1);
-                    _node = nullptr; //TODO implement
+                    _node = nullptr;
                 }
                 else if (_node->left == nullptr)
                 {
@@ -340,14 +334,13 @@ namespace ft {
                 }
                 else
                 {
-                    //node->right != nullptr && node->left != nullptr
                     node *tmp = ft::find_min(_node->right);
                     value_type val = tmp->value;
                     node *nodeP = tmp->parent;
                     _node->right = delete_node(_node->right, tmp->value.first);
                     tmp = delete_balance(nodeP, val.first);
                     node_allocator(allocator).construct(_node, val);
-                    if (tmp != nullptr) // illustrateit
+                    if (tmp != nullptr)
                         _node = tmp;
                 }
             }
@@ -391,7 +384,6 @@ namespace ft {
                 end_node->left = root_node;
             }
         }
-
 
         node*   upper_bound(const key_type& key)
         {
@@ -440,7 +432,6 @@ namespace ft {
             }
         }
        
-
         void clear(){
             if (this->root_node != this->end_node)
             {
@@ -450,7 +441,6 @@ namespace ft {
                 this->end_node->left = this->root_node;
             }
         };
-
 
         size_type max_size() const
         {
@@ -470,7 +460,6 @@ namespace ft {
         ~_tree(){};
 
     };
-
 
 }
 

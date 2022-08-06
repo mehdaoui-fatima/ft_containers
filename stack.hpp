@@ -2,8 +2,6 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 #include "vector.hpp"
-#include <stack>
-
 
 namespace ft {
 

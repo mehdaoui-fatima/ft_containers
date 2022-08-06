@@ -1,7 +1,7 @@
 #ifndef HELPERS_HPP
 #define HELPERS_HPP
-namespace ft{
 
+namespace ft{
     template<class nodePointer>
     nodePointer find_min(nodePointer node){
         nodePointer it;
@@ -18,7 +18,6 @@ namespace ft{
         while(it->right != nullptr)
             it = it->right;
         return it;
-
     }
 
     template <class nodePointer>
@@ -46,7 +45,6 @@ namespace ft{
         }
         return tmp;
 	};
-
 
 }
 
