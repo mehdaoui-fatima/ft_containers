@@ -51,10 +51,12 @@ template < class Key,
 					return comp(x.first, y);
 				};
 		};
+
+		//TODO check this declaration
 		typedef		_tree<value_type, value_compare, allocator_type>				tree;
 
 		explicit map(const key_compare& comp = key_compare(),
-				const allocator_type& alloc = allocator_type()):t(compare_object, allocator), allocator(alloc), compare_object(comp)  {}
+				const allocator_type& alloc = allocator_type()):t(compare_object, allocator), allocator(alloc), compare_object(comp){}
 
 		map& operator=(const map& x){
 			if (this != &x){
@@ -78,224 +80,226 @@ template < class Key,
 			insert(first, last);
 		};
 
+		//destructor
 		~map(){
 			this->clear();
 			node_allocator(allocator).deallocate(t.end_node, 1);
 		}
-	//iterators
-	iterator	begin()
-	{
-		return iterator(t.begin());
-	}
-
-	const_iterator begin() const
-	{
-		return const_iterator(t.begin());
-	}
-
-	iterator end()
-	{
-		return iterator(t.end());
-	}
-
-	const_iterator end() const
-	{
-		return const_iterator(t.end());
-	}
-
-	reverse_iterator rbegin()
-	{
-		return reverse_iterator(end());	
-	}
-
-	const_reverse_iterator rbegin() const
-	{
-		return reverse_iterator(end());
-	}
-
-	reverse_iterator rend()
-	{
-		return reverse_iterator(begin());
-	}
-
-	const_reverse_iterator rend() const
-	{
-		return const_reverse_iterator(begin());
-	}
 
 
-	//Capacity
-	bool empty() const
-	{
-		return(t.size() == 0);
-	}
-
-	size_type size() const
-	{
-		return (t.size());
-	}
-
-	size_type max_size() const
-	{
-		return (t.max_size());
-	}
-
-	//element access
-	mapped_type& operator[](const key_type& k)
-	{	
-		nodePointer tmp = t.search(k);
-		if(tmp == nullptr)
+		//iterators
+		iterator	begin()
 		{
-			value_type p = ft::make_pair(k, mapped_type());
-			tmp = t.create_node(p);
-			t.add_node(tmp);
+			return iterator(t.begin());
 		}
-		return tmp->value.second;
-	}
 
-	//Modifiers
-
-	pair<iterator, bool> insert(const value_type& val)
-	{
-	
-		nodePointer tmp = t.search(val);
-		if (tmp != nullptr)
+		const_iterator begin() const
 		{
-			ft::pair<iterator, bool> res(iterator(tmp), false);
-			return res;
+			return const_iterator(t.begin());
 		}
-		else
+
+		iterator end()
 		{
-			nodePointer noder = t.create_node(val);
-			tmp = t.add_node(noder);
-			ft::pair<iterator, bool> res(iterator(tmp), true);
-			return res;
+			return iterator(t.end());
 		}
-	}
 
-
-	iterator insert(iterator position, const value_type& val)
-	{
-		return (insert(val).first);
-	}
-
-
-	template <class InputIterator>
-	void insert(InputIterator first, InputIterator last)
-	{
-		while(first != last)
+		const_iterator end() const
 		{
-			insert(*first);
-			first++;
+			return const_iterator(t.end());
 		}
-	}
 
-	//return the elelmnt if found end otherwise
-	iterator find(const key_type& k)
-	{
-		nodePointer	node;
-		node = t.search(k);
-		if (node == nullptr)
-			return end();
-		else
-			return (iterator(node));
-	}
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());	
+		}
 
-	const_iterator find(const key_type& k) const
-	{
-		nodePointer	node;
-		node = t.search(k);
-		if (node == nullptr)
-			return end();
-		else
-			return (const_iterator(node));
-	}
+		const_reverse_iterator rbegin() const
+		{
+			return reverse_iterator(end());
+		}
+
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin());
+		}
+
+		const_reverse_iterator rend() const
+		{
+			return const_reverse_iterator(begin());
+		}
 
 
-	void erase(iterator position)
-	{
-		value_type d = *position;
-		if (find(d.first) != end())
-			t.delete_(d.first);
-	}
+		//Capacity
+		bool empty() const
+		{
+			return(t.size() == 0);
+		}
 
-	//returned the number of the value erased or deleted
-	size_type erase(const key_type& k)
-	{
-		iterator	it = find(k);
+		size_type size() const
+		{
+			return (t.size());
+		}
+
+		size_type max_size() const
+		{
+			return (t.max_size());
+		}
+
+		//element access
+		mapped_type& operator[](const key_type& k)
+		{	
+			nodePointer tmp = t.search(k);
+			if(tmp == nullptr)
+			{
+				value_type p = ft::make_pair(k, mapped_type());
+				tmp = t.create_node(p);
+				t.add_node(tmp);
+			}
+			return tmp->value.second;
+		}
+
+		//Modifiers
+
+		pair<iterator, bool> insert(const value_type& val)
+		{
 		
-		if (it == end())
-			return (0);
-		else
+			nodePointer tmp = t.search(val);
+			if (tmp != nullptr)
+			{
+				ft::pair<iterator, bool> res(iterator(tmp), false);
+				return res;
+			}
+			else
+			{
+				nodePointer noder = t.create_node(val);
+				tmp = t.add_node(noder);
+				ft::pair<iterator, bool> res(iterator(tmp), true);
+				return res;
+			}
+		}
+
+
+		iterator insert(iterator position, const value_type& val)
 		{
-			t.delete_(k);
+			return (insert(val).first);
+		}
+
+
+		template <class InputIterator>
+		void insert(InputIterator first, InputIterator last)
+		{
+			while(first != last)
+			{
+				insert(*first);
+				first++;
+			}
+		}
+
+		//return the elelmnt if found end otherwise
+		iterator find(const key_type& k)
+		{
+			nodePointer	node;
+			node = t.search(k);
+			if (node == nullptr)
+				return end();
+			else
+				return (iterator(node));
+		}
+
+		const_iterator find(const key_type& k) const
+		{
+			nodePointer	node;
+			node = t.search(k);
+			if (node == nullptr)
+				return end();
+			else
+				return (const_iterator(node));
+		}
+
+		void erase(iterator position)
+		{
+			value_type d = *position;
+			if (find(d.first) != end())
+				t.delete_(d.first);
+		}
+
+		//returned the number of the value erased or deleted
+		size_type erase(const key_type& k)
+		{
+			iterator	it = find(k);
+			
+			if (it == end())
+				return (0);
+			else
+			{
+				t.delete_(k);
+				return (1);
+			}
+		}
+
+		//the last not erased
+		void erase(iterator first, iterator last)
+		{
+			while(first != last)
+			{
+				iterator it = first++;
+				this->erase(it);
+			}
+		}
+
+		void swap(map& x)
+		{
+			t.swap(x.t);
+		}
+
+		void clear()
+		{
+			t.clear();
+		}
+
+		//return the duplication ok a key 1 if found 0 otherwise (map have unique keys)
+		size_type count(const key_type& k) const
+		{
+			nodePointer node = t.search(k);
+			if(node == nullptr)
+				return(0);
 			return (1);
 		}
-	}
 
-	//the last not erased
-	void erase(iterator first, iterator last)
-	{
-		while(first != last)
+		iterator lower_bound(const key_type& k)
 		{
-			iterator it = first++;
-			this->erase(it);
+			return (iterator(t.lower_bound(k)));
 		}
-	}
 
-	void swap(map& x)
-	{
-		swap(x.t);
-	}
+		const_iterator lower_bound (const key_type& k) const
+		{
+			return (const_iterator(t.lower_bound(k)));
+		}
 
-	void clear()
-	{
-		t.clear();
-	}
+		iterator upper_bound(const key_type& k)
+		{
+			return(iterator(upper_bound(k)));
+		}
 
-	//return the duplication ok a key 1 if found 0 otherwise (map have unique keys)
-	size_type count(const key_type& k) const
-	{
-		nodePointer node = t.search(k);
-		if(node == nullptr)
-			return(0);
-		return (1);
-	}
+		const_iterator upper_bound(const key_type& k) const
+		{
+			return (const_iterator(upper_bound(k)));
+		}
 
-	iterator lower_bound(const key_type& k)
-	{
-		return (iterator(t.lower_bound(k)));
-	}
+		pair<const_iterator, const_iterator> equal_range(const key_type& k) const
+		{
+			return ft::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
+		}
 
-	const_iterator lower_bound (const key_type& k) const
-	{
-		return (const_iterator(t.lower_bound(k)));
-	}
+		pair<iterator, iterator>	equal_range(const key_type& k)
+		{
+			return ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
+		}
 
-	iterator upper_bound(const key_type& k)
-	{
-		return(iterator(upper_bound(k)));
-	}
-
-	const_iterator upper_bound(const key_type& k) const
-	{
-		return (const_iterator(upper_bound(k)));
-	}
-
-	pair<const_iterator, const_iterator> equal_range(const key_type& k) const
-	{
-		return ft::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
-	}
-
-	pair<iterator, iterator>	equal_range(const key_type& k)
-	{
-		return ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
-	}
-
-	protected:
-		tree t;
-		allocator_type	allocator;
-		value_compare	compare_object;
+		protected:
+			tree t;
+			allocator_type	allocator;
+			value_compare	compare_object;
 
 };
 
