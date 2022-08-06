@@ -69,14 +69,14 @@ template < class Key,
 			return *this;
 		};
 
-		map(const map& x):t(compare_object, allocator), compare_object(x.compare_object), allocator(x.allocator){
+		map(const map& x):t(compare_object, allocator), allocator(x.allocator), compare_object(x.compare_object){
 				*this = x;
 		};
 
 		template <class InputIterator>
 		map(InputIterator first, InputIterator last,
 				const key_compare& comp = key_compare(),
-				const allocator_type& alloc = allocator_type()):t(compare_object), compare_object(comp), allocator(alloc)
+				const allocator_type& alloc = allocator_type()):t(compare_object), allocator(alloc), compare_object(comp)
 		{
 			insert(first, last);
 		};
@@ -179,8 +179,11 @@ template < class Key,
 		}
 
 
+		// TODO need to use position
 		iterator insert(iterator position, const value_type& val)
 		{
+			if (position.base() == nullptr)
+				return position;
 			return (insert(val).first);
 		}
 
@@ -222,6 +225,7 @@ template < class Key,
 				return ;
 			value_type d = *position;
 			if (find(d.first) != end()){
+
 				t.delete_(d.first);
 			}
 		}
@@ -281,12 +285,12 @@ template < class Key,
 
 		iterator upper_bound(const key_type& k)
 		{
-			return(iterator(upper_bound(k)));
+			return(iterator(t.upper_bound(k)));
 		}
 
 		const_iterator upper_bound(const key_type& k) const
 		{
-			return (const_iterator(upper_bound(k)));
+			return (const_iterator(t.upper_bound(k)));
 		}
 
 		pair<const_iterator, const_iterator> equal_range(const key_type& k) const
@@ -297,6 +301,16 @@ template < class Key,
 		pair<iterator, iterator>	equal_range(const key_type& k)
 		{
 			return ft::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
+		}
+
+		allocator_type get_allocator() const
+		{
+			return (allocator);
+		}
+
+		value_compare value_comp() const
+		{
+			return compare_object;
 		}
 
 		protected:

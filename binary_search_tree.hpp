@@ -111,7 +111,7 @@ namespace ft {
             new_node->right = nullptr;
             new_node->left = nullptr;
             new_node->balance_factor = 0;
-            return( new_node);
+            return (new_node);
         }
 
         node*   add_node(node* new_node)
@@ -375,7 +375,6 @@ namespace ft {
         void	delete_(const key_type& key)
         {
             node* t = this->search(key);
-            node* tp = t->parent;
             bool	stat = true;
 
             if (t->left == nullptr || t->right == nullptr)
@@ -419,7 +418,7 @@ namespace ft {
 
             while(it != nullptr)
             {
-                if (compare_object(key, it->value) == false)
+                if (compare_object(it->value, key) == false)
                 {
                     res = it;
                     it = it->left;
@@ -428,19 +427,6 @@ namespace ft {
                     it = it->right;
             }
             return res;
-        }
-
-
-
-        void    swap(_tree p)
-        {
-            node* tmp;
-            tmp = this->end_node;
-            this->end_node = p.end_node;
-            p.end_node = tmp->end_node;
-            tmp = this->root_node;
-            this->root_node = p.root_node;
-            p.root_node = tmp->root_node;
         }
 
         void destroy(node*  root)
@@ -463,7 +449,7 @@ namespace ft {
                 this->root_node = this->end_node;
                 this->end_node->left = this->root_node;
             }
-    };
+        };
 
 
         size_type max_size() const
